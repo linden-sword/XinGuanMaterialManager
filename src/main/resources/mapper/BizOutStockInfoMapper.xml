@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zs.xinguanmaterialmanager.mapper.BizOutStockInfoMapper">
+
+    <resultMap type="com.zs.xinguanmaterialmanager.entity.BizOutStockInfo" id="BizOutStockInfoMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="outNum" column="out_num" jdbcType="VARCHAR"/>
+        <result property="pNum" column="p_num" jdbcType="VARCHAR"/>
+        <result property="productNumber" column="product_number" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="modifiedTime" column="modified_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BizOutStockInfoMap">
+        select id,
+               out_num,
+               p_num,
+               product_number,
+               create_time,
+               modified_time
+        from biz_out_stock_info
+        where id = #{id}
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into biz_out_stock_info(out_num, p_num, product_number, create_time, modified_time)
+        values (#{outNum}, #{pNum}, #{productNumber}, #{createTime}, #{modifiedTime})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into biz_out_stock_info(out_num, p_num, product_number, create_time, modified_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.outNum}, #{entity.pNum}, #{entity.productNumber}, #{entity.createTime}, #{entity.modifiedTime})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into biz_out_stock_info(out_num, p_num, product_number, create_time, modified_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.outNum}, #{entity.pNum}, #{entity.productNumber}, #{entity.createTime}, #{entity.modifiedTime})
+        </foreach>
+        on duplicate key update
+        out_num = values(out_num),
+        p_num = values(p_num),
+        product_number = values(product_number),
+        create_time = values(create_time),
+        modified_time = values(modified_time)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update biz_out_stock_info
+        <set>
+            <if test="outNum != null and outNum != ''">
+                out_num = #{outNum},
+            </if>
+            <if test="pNum != null and pNum != ''">
+                p_num = #{pNum},
+            </if>
+            <if test="productNumber != null">
+                product_number = #{productNumber},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="modifiedTime != null">
+                modified_time = #{modifiedTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from biz_out_stock_info
+        where id = #{id}
+    </delete>
+
+</mapper>
+

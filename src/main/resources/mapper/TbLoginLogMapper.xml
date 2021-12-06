@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zs.xinguanmaterialmanager.mapper.TbLoginLogMapper">
+
+    <resultMap type="com.zs.xinguanmaterialmanager.entity.TbLoginLog" id="TbLoginLogMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="loginTime" column="login_time" jdbcType="TIMESTAMP"/>
+        <result property="location" column="location" jdbcType="VARCHAR"/>
+        <result property="ip" column="ip" jdbcType="VARCHAR"/>
+        <result property="userSystem" column="user_system" jdbcType="VARCHAR"/>
+        <result property="userBrowser" column="user_browser" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="TbLoginLogMap">
+        select id,
+               username,
+               login_time,
+               location,
+               ip,
+               user_system,
+               user_browser
+        from tb_login_log
+        where id = #{id}
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into tb_login_log(username, login_time, location, ip, user_system, user_browser)
+        values (#{username}, #{loginTime}, #{location}, #{ip}, #{userSystem}, #{userBrowser})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into tb_login_log(username, login_time, location, ip, user_system, user_browser)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.username}, #{entity.loginTime}, #{entity.location}, #{entity.ip}, #{entity.userSystem},
+            #{entity.userBrowser})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into tb_login_log(username, login_time, location, ip, user_system, user_browser)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.username}, #{entity.loginTime}, #{entity.location}, #{entity.ip}, #{entity.userSystem},
+            #{entity.userBrowser})
+        </foreach>
+        on duplicate key update
+        username = values(username),
+        login_time = values(login_time),
+        location = values(location),
+        ip = values(ip),
+        user_system = values(user_system),
+        user_browser = values(user_browser)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update tb_login_log
+        <set>
+            <if test="username != null and username != ''">
+                username = #{username},
+            </if>
+            <if test="loginTime != null">
+                login_time = #{loginTime},
+            </if>
+            <if test="location != null and location != ''">
+                location = #{location},
+            </if>
+            <if test="ip != null and ip != ''">
+                ip = #{ip},
+            </if>
+            <if test="userSystem != null and userSystem != ''">
+                user_system = #{userSystem},
+            </if>
+            <if test="userBrowser != null and userBrowser != ''">
+                user_browser = #{userBrowser},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from tb_login_log
+        where id = #{id}
+    </delete>
+
+</mapper>
+

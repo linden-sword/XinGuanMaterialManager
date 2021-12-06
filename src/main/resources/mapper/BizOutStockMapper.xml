@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zs.xinguanmaterialmanager.mapper.BizOutStockMapper">
+
+    <resultMap type="com.zs.xinguanmaterialmanager.entity.BizOutStock" id="BizOutStockMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="outNum" column="out_num" jdbcType="VARCHAR"/>
+        <result property="type" column="type" jdbcType="INTEGER"/>
+        <result property="operator" column="operator" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="productNumber" column="product_number" jdbcType="INTEGER"/>
+        <result property="consumerId" column="consumer_id" jdbcType="INTEGER"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="priority" column="priority" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BizOutStockMap">
+        select id,
+               out_num,
+               type,
+               operator,
+               create_time,
+               product_number,
+               consumer_id,
+               remark,
+               status,
+               priority
+        from biz_out_stock
+        where id = #{id}
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into biz_out_stock(out_num, type, operator, create_time, product_number, consumer_id, remark, status,
+                                  priority)
+        values (#{outNum}, #{type}, #{operator}, #{createTime}, #{productNumber}, #{consumerId}, #{remark}, #{status},
+                #{priority})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into biz_out_stock(out_num, type, operator, create_time, product_number, consumer_id, remark, status,
+        priority)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.outNum}, #{entity.type}, #{entity.operator}, #{entity.createTime}, #{entity.productNumber},
+            #{entity.consumerId}, #{entity.remark}, #{entity.status}, #{entity.priority})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into biz_out_stock(out_num, type, operator, create_time, product_number, consumer_id, remark, status,
+        priority)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.outNum}, #{entity.type}, #{entity.operator}, #{entity.createTime}, #{entity.productNumber},
+            #{entity.consumerId}, #{entity.remark}, #{entity.status}, #{entity.priority})
+        </foreach>
+        on duplicate key update
+        out_num = values(out_num),
+        type = values(type),
+        operator = values(operator),
+        create_time = values(create_time),
+        product_number = values(product_number),
+        consumer_id = values(consumer_id),
+        remark = values(remark),
+        status = values(status),
+        priority = values(priority)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update biz_out_stock
+        <set>
+            <if test="outNum != null and outNum != ''">
+                out_num = #{outNum},
+            </if>
+            <if test="type != null">
+                type = #{type},
+            </if>
+            <if test="operator != null and operator != ''">
+                operator = #{operator},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="productNumber != null">
+                product_number = #{productNumber},
+            </if>
+            <if test="consumerId != null">
+                consumer_id = #{consumerId},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="priority != null">
+                priority = #{priority},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from biz_out_stock
+        where id = #{id}
+    </delete>
+
+</mapper>
+

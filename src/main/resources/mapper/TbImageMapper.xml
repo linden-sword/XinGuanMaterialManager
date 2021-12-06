@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zs.xinguanmaterialmanager.mapper.TbImageMapper">
+
+    <resultMap type="com.zs.xinguanmaterialmanager.entity.TbImage" id="TbImageMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="path" column="path" jdbcType="VARCHAR"/>
+        <result property="size" column="size" jdbcType="INTEGER"/>
+        <result property="mediaType" column="media_type" jdbcType="VARCHAR"/>
+        <result property="suffix" column="suffix" jdbcType="VARCHAR"/>
+        <result property="height" column="height" jdbcType="INTEGER"/>
+        <result property="width" column="width" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="TbImageMap">
+        select id,
+               path,
+               size,
+               media_type,
+               suffix,
+               height,
+               width,
+               create_time
+        from tb_image
+        where id = #{id}
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into tb_image(path, size, media_type, suffix, height, width, create_time)
+        values (#{path}, #{size}, #{mediaType}, #{suffix}, #{height}, #{width}, #{createTime})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into tb_image(path, size, media_type, suffix, height, width, create_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.path}, #{entity.size}, #{entity.mediaType}, #{entity.suffix}, #{entity.height}, #{entity.width},
+            #{entity.createTime})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into tb_image(path, size, media_type, suffix, height, width, create_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.path}, #{entity.size}, #{entity.mediaType}, #{entity.suffix}, #{entity.height}, #{entity.width},
+            #{entity.createTime})
+        </foreach>
+        on duplicate key update
+        path = values(path),
+        size = values(size),
+        media_type = values(media_type),
+        suffix = values(suffix),
+        height = values(height),
+        width = values(width),
+        create_time = values(create_time)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update tb_image
+        <set>
+            <if test="path != null and path != ''">
+                path = #{path},
+            </if>
+            <if test="size != null">
+                size = #{size},
+            </if>
+            <if test="mediaType != null and mediaType != ''">
+                media_type = #{mediaType},
+            </if>
+            <if test="suffix != null and suffix != ''">
+                suffix = #{suffix},
+            </if>
+            <if test="height != null">
+                height = #{height},
+            </if>
+            <if test="width != null">
+                width = #{width},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from tb_image
+        where id = #{id}
+    </delete>
+
+</mapper>
+

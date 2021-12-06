@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zs.xinguanmaterialmanager.mapper.BizInStockMapper">
+
+    <resultMap type="com.zs.xinguanmaterialmanager.entity.BizInStock" id="BizInStockMap">
+        <result property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="inNum" column="in_num" jdbcType="VARCHAR"/>
+        <result property="type" column="type" jdbcType="INTEGER"/>
+        <result property="operator" column="operator" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="modified" column="modified" jdbcType="TIMESTAMP"/>
+        <result property="productNumber" column="product_number" jdbcType="INTEGER"/>
+        <result property="supplierId" column="supplier_id" jdbcType="INTEGER"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BizInStockMap">
+        select id,
+               in_num,
+               type,
+               operator,
+               create_time,
+               modified,
+               product_number,
+               supplier_id,
+               remark,
+               status
+        from biz_in_stock
+        where id = #{id}
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into biz_in_stock(in_num, type, operator, create_time, modified, product_number, supplier_id, remark,
+                                 status)
+        values (#{inNum}, #{type}, #{operator}, #{createTime}, #{modified}, #{productNumber}, #{supplierId}, #{remark},
+                #{status})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into biz_in_stock(in_num, type, operator, create_time, modified, product_number, supplier_id, remark,
+        status)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.inNum}, #{entity.type}, #{entity.operator}, #{entity.createTime}, #{entity.modified},
+            #{entity.productNumber}, #{entity.supplierId}, #{entity.remark}, #{entity.status})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into biz_in_stock(in_num, type, operator, create_time, modified, product_number, supplier_id, remark,
+        status)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.inNum}, #{entity.type}, #{entity.operator}, #{entity.createTime}, #{entity.modified},
+            #{entity.productNumber}, #{entity.supplierId}, #{entity.remark}, #{entity.status})
+        </foreach>
+        on duplicate key update
+        in_num = values(in_num),
+        type = values(type),
+        operator = values(operator),
+        create_time = values(create_time),
+        modified = values(modified),
+        product_number = values(product_number),
+        supplier_id = values(supplier_id),
+        remark = values(remark),
+        status = values(status)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update biz_in_stock
+        <set>
+            <if test="inNum != null and inNum != ''">
+                in_num = #{inNum},
+            </if>
+            <if test="type != null">
+                type = #{type},
+            </if>
+            <if test="operator != null and operator != ''">
+                operator = #{operator},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="modified != null">
+                modified = #{modified},
+            </if>
+            <if test="productNumber != null">
+                product_number = #{productNumber},
+            </if>
+            <if test="supplierId != null">
+                supplier_id = #{supplierId},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from biz_in_stock
+        where id = #{id}
+    </delete>
+
+</mapper>
+
