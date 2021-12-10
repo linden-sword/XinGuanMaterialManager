@@ -24,6 +24,16 @@ public interface TbRoleMapper {
     TbRole queryById(Long id);
 
     /**
+     * 模糊分页查询二合一
+     *
+     * @param tbRole
+     * @return java.util.List<com.zs.xinguanmaterialmanager.entity.TbRole>
+     * @author Zanson
+     * @since 21:59 2021/12/7
+     **/
+    List<TbRole> queryAll(TbRole tbRole);
+
+    /**
      * 新增数据
      *
      * @param tbRole 实例对象

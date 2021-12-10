@@ -24,6 +24,16 @@ public interface TbUserRoleMapper {
     TbUserRole queryById(Integer id);
 
     /**
+     * 通过userID查询userRole
+     *
+     * @param id
+     * @return java.util.List<com.zs.xinguanmaterialmanager.entity.TbUserRole>
+     * @author Zanson
+     * @since 17:11 2021/12/7
+     **/
+    List<TbUserRole> queryUserRoleByUserId(Long id);
+
+    /**
      * 新增数据
      *
      * @param tbUserRole 实例对象

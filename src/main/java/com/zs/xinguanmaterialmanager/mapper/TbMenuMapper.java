@@ -24,6 +24,25 @@ public interface TbMenuMapper {
     TbMenu queryById(Long id);
 
     /**
+     * 查询所有权限
+     *
+     * @author Zanson
+     * @since 10:49 2021/12/7
+     * @return java.util.List<com.zs.xinguanmaterialmanager.entity.TbMenu>
+    **/
+    List<TbMenu> queryAll();
+
+    /**
+     * 根据上级菜单ID查询权限列表
+     *
+     * @author Zanson
+     * @since 11:12 2021/12/7
+     * @param parentId
+     * @return java.util.List<com.zs.xinguanmaterialmanager.entity.TbMenu>
+    **/
+    List<TbMenu> queryByParentId(Long parentId);
+
+    /**
      * 新增数据
      *
      * @param tbMenu 实例对象

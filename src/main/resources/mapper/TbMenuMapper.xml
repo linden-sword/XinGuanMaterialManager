@@ -35,6 +35,41 @@
         where id = #{id}
     </select>
 
+    <!--查询所有权限-->
+    <select id="queryAll" resultMap="TbMenuMap">
+        select id,
+               parent_id,
+               menu_name,
+               url,
+               perms,
+               icon,
+               type,
+               order_num,
+               create_time,
+               modified_time,
+               available,
+               open
+        from tb_menu
+    </select>
+
+    <!--根据上级菜单ID查询权限列表-->
+    <select id="queryByParentId" resultMap="TbMenuMap">
+        select id,
+               parent_id,
+               menu_name,
+               url,
+               perms,
+               icon,
+               type,
+               order_num,
+               create_time,
+               modified_time,
+               available,
+               open
+        from tb_menu
+        where parent_id = #{parentId}
+    </select>
+
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
         insert into tb_menu(parent_id, menu_name, url, perms, icon, type, order_num, create_time, modified_time,

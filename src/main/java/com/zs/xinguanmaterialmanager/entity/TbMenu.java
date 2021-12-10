@@ -1,7 +1,10 @@
 package com.zs.xinguanmaterialmanager.entity;
 
+import lombok.ToString;
+
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 菜单表(TbMenu)实体类
@@ -9,6 +12,7 @@ import java.util.Date;
  * @author makejava
  * @since 2021-12-06 20:32:41
  */
+@ToString
 public class TbMenu implements Serializable {
     private static final long serialVersionUID = -75609783500095599L;
     /**
@@ -60,6 +64,20 @@ public class TbMenu implements Serializable {
      */
     private Integer open;
 
+    /**
+     * 用来存子节点们
+     *
+     * @since 10:07 2021/12/8
+     **/
+    private List<TbMenu> children;
+
+    public List<TbMenu> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<TbMenu> children) {
+        this.children = children;
+    }
 
     public Long getId() {
         return id;
