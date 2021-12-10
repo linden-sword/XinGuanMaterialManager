@@ -73,10 +73,10 @@ public class BizSupplierController {
     public R update(@RequestBody BizSupplier bizSupplier){
         int i = bizSupplierService.update(bizSupplier);
         if (i==1){
-            return  R.ok().setData("");
+            return  R.ok().setData("修改成功");
         }
         if(i != 1){
-            return  R.fail().setData("删除失败!");
+            return  R.fail().setData("修改失败!");
         }
         return R.exp().setData("系统异常!");
     }
