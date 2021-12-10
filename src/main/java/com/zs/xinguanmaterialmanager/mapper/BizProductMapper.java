@@ -1,5 +1,6 @@
 package com.zs.xinguanmaterialmanager.mapper;
 
+import com.zs.xinguanmaterialmanager.entity.BizOutStock;
 import com.zs.xinguanmaterialmanager.entity.BizProduct;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
