@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zs.xinguanmaterialmanager.mapper.TbLogMapper">
+
+    <resultMap type="com.zs.xinguanmaterialmanager.entity.TbLog" id="TbLogMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="operation" column="operation" jdbcType="VARCHAR"/>
+        <result property="time" column="time" jdbcType="VARCHAR"/>
+        <result property="method" column="method" jdbcType="VARCHAR"/>
+        <result property="params" column="params" jdbcType="VARCHAR"/>
+        <result property="ip" column="ip" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="location" column="location" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
+    <!--查询所有-->
+    <select id="queryAll" resultMap="TbLogMap" resultType="list">
+        select
+        id, username, operation,time,method,params,ip,create_time,location
+        from tb_log
+        <where>
+        <if test="username != null">
+            and username = #{username}
+        </if>
+        <if test="operation != null">
+            and operation = #{operation}
+        </if>
+        <if test="time != null">
+            and time = #{time}
+        </if>
+        <if test="method != null">
+            and method = #{method}
+        </if>
+        <if test="params != null">
+            and params = #{params}
+        </if>
+        <if test="ip != null">
+            and ip = #{ip}
+        </if>
+        <if test="createTime != null">
+            and create_time = #{createTime}
+        </if>
+        <if test="location != null">
+            and location = #{location}
+        </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into tb_log
+        values (null,#{username}, #{operation}, #{time}, #{method}, #{params}, #{ip}, #{createTime}, #{location})
+    </insert>
+
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from tb_log
+        where id = #{id}
+    </delete>
+
+</mapper>
+

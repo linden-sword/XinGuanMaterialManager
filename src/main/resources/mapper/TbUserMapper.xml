@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zs.xinguanmaterialmanager.mapper.TbUserMapper">
+
+    <resultMap type="com.zs.xinguanmaterialmanager.entity.TbUser" id="TbUserMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="nickname" column="nickname" jdbcType="VARCHAR"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="avatar" column="avatar" jdbcType="VARCHAR"/>
+        <result property="phoneNumber" column="phone_number" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="modifiedTime" column="modified_time" jdbcType="TIMESTAMP"/>
+        <result property="sex" column="sex" jdbcType="INTEGER"/>
+        <result property="salt" column="salt" jdbcType="VARCHAR"/>
+        <result property="type" column="type" jdbcType="INTEGER"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="birth" column="birth" jdbcType="TIMESTAMP"/>
+        <result property="departmentId" column="department_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="TbUserMap">
+        select id,
+               username,
+               nickname,
+               email,
+               avatar,
+               phone_number,
+               status,
+               create_time,
+               modified_time,
+               sex,
+               salt,
+               type,
+               password,
+               birth,
+               department_id
+        from tb_user
+        where id = #{id}
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into tb_user(username, nickname, email, avatar, phone_number, status, create_time, modified_time, sex,
+                            salt, type, password, birth, department_id)
+        values (#{username}, #{nickname}, #{email}, #{avatar}, #{phoneNumber}, #{status}, #{createTime},
+                #{modifiedTime}, #{sex}, #{salt}, #{type}, #{password}, #{birth}, #{departmentId})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into tb_user(username, nickname, email, avatar, phone_number, status, create_time, modified_time, sex,
+        salt, type, password, birth, department_id)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.username}, #{entity.nickname}, #{entity.email}, #{entity.avatar}, #{entity.phoneNumber},
+            #{entity.status}, #{entity.createTime}, #{entity.modifiedTime}, #{entity.sex}, #{entity.salt},
+            #{entity.type}, #{entity.password}, #{entity.birth}, #{entity.departmentId})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into tb_user(username, nickname, email, avatar, phone_number, status, create_time, modified_time, sex,
+        salt, type, password, birth, department_id)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.username}, #{entity.nickname}, #{entity.email}, #{entity.avatar}, #{entity.phoneNumber},
+            #{entity.status}, #{entity.createTime}, #{entity.modifiedTime}, #{entity.sex}, #{entity.salt},
+            #{entity.type}, #{entity.password}, #{entity.birth}, #{entity.departmentId})
+        </foreach>
+        on duplicate key update
+        username = values(username),
+        nickname = values(nickname),
+        email = values(email),
+        avatar = values(avatar),
+        phone_number = values(phone_number),
+        status = values(status),
+        create_time = values(create_time),
+        modified_time = values(modified_time),
+        sex = values(sex),
+        salt = values(salt),
+        type = values(type),
+        password = values(password),
+        birth = values(birth),
+        department_id = values(department_id)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update tb_user
+        <set>
+            <if test="username != null and username != ''">
+                username = #{username},
+            </if>
+            <if test="nickname != null and nickname != ''">
+                nickname = #{nickname},
+            </if>
+            <if test="email != null and email != ''">
+                email = #{email},
+            </if>
+            <if test="avatar != null and avatar != ''">
+                avatar = #{avatar},
+            </if>
+            <if test="phoneNumber != null and phoneNumber != ''">
+                phone_number = #{phoneNumber},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="modifiedTime != null">
+                modified_time = #{modifiedTime},
+            </if>
+            <if test="sex != null">
+                sex = #{sex},
+            </if>
+            <if test="salt != null and salt != ''">
+                salt = #{salt},
+            </if>
+            <if test="type != null">
+                type = #{type},
+            </if>
+            <if test="password != null and password != ''">
+                password = #{password},
+            </if>
+            <if test="birth != null">
+                birth = #{birth},
+            </if>
+            <if test="departmentId != null">
+                department_id = #{departmentId},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from tb_user
+        where id = #{id}
+    </delete>
+
+</mapper>
+

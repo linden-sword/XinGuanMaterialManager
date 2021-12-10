@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zs.xinguanmaterialmanager.mapper.BizProductCategoryMapper">
+
+    <resultMap type="com.zs.xinguanmaterialmanager.entity.BizProductCategory" id="BizProductCategoryMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="sort" column="sort" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="modifiedTime" column="modified_time" jdbcType="TIMESTAMP"/>
+        <result property="pid" column="pid" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BizProductCategoryMap">
+        select id,
+               name,
+               remark,
+               sort,
+               create_time,
+               modified_time,
+               pid
+        from biz_product_category
+        where id = #{id}
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into biz_product_category(name, remark, sort, create_time, modified_time, pid)
+        values (#{name}, #{remark}, #{sort}, #{createTime}, #{modifiedTime}, #{pid})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into biz_product_category(name, remark, sort, create_time, modified_time, pid)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.name}, #{entity.remark}, #{entity.sort}, #{entity.createTime}, #{entity.modifiedTime},
+            #{entity.pid})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into biz_product_category(name, remark, sort, create_time, modified_time, pid)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.name}, #{entity.remark}, #{entity.sort}, #{entity.createTime}, #{entity.modifiedTime},
+            #{entity.pid})
+        </foreach>
+        on duplicate key update
+        name = values(name),
+        remark = values(remark),
+        sort = values(sort),
+        create_time = values(create_time),
+        modified_time = values(modified_time),
+        pid = values(pid)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update biz_product_category
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="sort != null">
+                sort = #{sort},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="modifiedTime != null">
+                modified_time = #{modifiedTime},
+            </if>
+            <if test="pid != null">
+                pid = #{pid},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from biz_product_category
+        where id = #{id}
+    </delete>
+
+</mapper>
+
