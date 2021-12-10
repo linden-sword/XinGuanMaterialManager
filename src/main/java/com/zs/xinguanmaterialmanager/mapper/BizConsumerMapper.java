@@ -16,20 +16,20 @@ import java.util.List;
 public interface BizConsumerMapper {
 
     /**
-     * 通过ID查询单条数据
-     *
-     * @param id 主键
-     * @return 实例对象
+     * @Author yym
+     * @Description //TODO 通过ID查询单条数据
+     * @Date 2021/12/6 22:35
+     * @Param [id]
      */
-    BizConsumer queryById(Long id);
+    BizConsumer findById(Long id);
 
     /**
-     * 新增数据
-     *
-     * @param bizConsumer 实例对象
-     * @return 影响行数
+     * @Author yym
+     * @Description //TODO 新增物资去处
+     * @Date 2021/12/6 22:15
+     * @Param [bizConsumer]
      */
-    int insert(BizConsumer bizConsumer);
+    int addConsumer(BizConsumer bizConsumer);
 
     /**
      * 批量新增数据（MyBatis原生foreach方法）
@@ -49,20 +49,36 @@ public interface BizConsumerMapper {
     int insertOrUpdateBatch(@Param("entities") List<BizConsumer> entities);
 
     /**
-     * 修改数据
-     *
-     * @param bizConsumer 实例对象
-     * @return 影响行数
+     * @Author yym
+     * @Description //TODO 根据ID更新物资去处信息
+     * @Date 2021/12/7 11:52
+     * @Param [id, bizConsumer]
      */
-    int update(BizConsumer bizConsumer);
+    int updateConsumer(BizConsumer bizConsumer);
 
     /**
-     * 通过主键删除数据
-     *
-     * @param id 主键
-     * @return 影响行数
+     * @Author yym
+     * @Description //TODO 根据ID删除物资去向
+     * @Date 2021/12/6 22:20
+     * @Param [id]
      */
-    int deleteById(Long id);
+    int deleteConsumer(Long id);
+
+    /**
+     * @Author yym
+     * @Description //TODO 查询所有的物资去向信息
+     * @Date 2021/12/7 9:21
+     * @Param []
+     */
+    List<BizConsumer> findAllConsumer();
+
+    /**
+     * @Author yym
+     * @Description //TODO 根据条件模糊查询
+     * @Date 2021/12/7 10:47
+     * @Param [bizConsumer]
+     */
+    List<BizConsumer> findConsumerList(BizConsumer bizConsumer);
 
 }
 

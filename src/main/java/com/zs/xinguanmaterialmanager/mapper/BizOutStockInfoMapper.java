@@ -26,10 +26,18 @@ public interface BizOutStockInfoMapper {
     BizOutStockInfo queryById(Long id);
 
     /**
-     * 新增数据
-     *
-     * @param bizOutStockInfo 实例对象
-     * @return 影响行数
+     * @Author yym
+     * @Description //TODO 根据out_num查 p_num
+     * @Date 2021/12/9 10:22
+     * @Param [outNnm]
+     */
+    List<BizOutStockInfo> queryByOutNum(String outNnm);
+
+    /**
+     * @Author yym
+     * @Description //TODO 提交物资发放单
+     * @Date 2021/12/8 21:21
+     * @Param [bizOutStockInfo]
      */
     int insert(BizOutStockInfo bizOutStockInfo);
 
@@ -59,10 +67,10 @@ public interface BizOutStockInfoMapper {
     int update(BizOutStockInfo bizOutStockInfo);
 
     /**
-     * 通过主键删除数据
-     *
-     * @param id 主键
-     * @return 影响行数
+     * @Author yym
+     * @Description //TODO 根据Id删除
+     * @Date 2021/12/9 10:45
+     * @Param [id]
      */
     int deleteById(Long id);
 //fan

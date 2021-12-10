@@ -36,6 +36,19 @@ public class BizConsumer implements Serializable {
      */
     private String contact;
 
+    public BizConsumer() {
+    }
+
+    public BizConsumer(String name, String address, Date createTime, Date modifiedTime, String phone, Integer sort, String contact) {
+        this.name = name;
+        this.address = address;
+        this.createTime = createTime;
+        this.modifiedTime = modifiedTime;
+        this.phone = phone;
+        this.sort = sort;
+        this.contact = contact;
+    }
+
 
     public Long getId() {
         return id;

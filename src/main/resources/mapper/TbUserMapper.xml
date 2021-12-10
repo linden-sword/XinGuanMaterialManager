@@ -41,6 +41,92 @@
         where id = #{id}
     </select>
 
+    <!--通过username查询user-->
+    <select id="findByUsername" resultMap="TbUserMap">
+        select id,
+               username,
+               nickname,
+               email,
+               avatar,
+               phone_number,
+               status,
+               create_time,
+               modified_time,
+               sex,
+               salt,
+               type,
+               password,
+               birth,
+               department_id
+        from tb_user
+        where username = #{username}
+    </select>
+
+    <!--分页模糊查询二合一-->
+    <select id="findUserList" resultMap="TbUserMap">
+        select id,
+        username,
+        nickname,
+        email,
+        avatar,
+        phone_number,
+        status,
+        create_time,
+        modified_time,
+        sex,
+        salt,
+        type,
+        password,
+        birth,
+        department_id
+        from tb_user
+        <where>
+            <if test="username != null and username != ''">
+                username = '%'#{username}'%',
+            </if>
+            <if test="nickname != null and nickname != ''">
+                nickname = '%'#{nickname}'%',
+            </if>
+            <if test="email != null and email != ''">
+                email = '%'#{email}'%',
+            </if>
+            <if test="avatar != null and avatar != ''">
+                avatar = #{avatar},
+            </if>
+            <if test="phoneNumber != null and phoneNumber != ''">
+                phone_number = #{phoneNumber},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="modifiedTime != null">
+                modified_time = #{modifiedTime},
+            </if>
+            <if test="sex != null">
+                sex = #{sex},
+            </if>
+            <if test="salt != null and salt != ''">
+                salt = #{salt},
+            </if>
+            <if test="type != null">
+                type = #{type},
+            </if>
+            <if test="password != null and password != ''">
+                password = #{password},
+            </if>
+            <if test="birth != null">
+                birth = #{birth},
+            </if>
+            <if test="departmentId != null">
+                department_id = #{departmentId},
+            </if>
+        </where>
+    </select>
+
+
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
         insert into tb_user(username, nickname, email, avatar, phone_number, status, create_time, modified_time, sex,

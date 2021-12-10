@@ -6,6 +6,7 @@ import com.zs.xinguanmaterialmanager.service.TbRoleService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 角色表(TbRole)表服务实现类
@@ -30,15 +31,27 @@ public class TbRoleServiceImpl implements TbRoleService {
     }
 
     /**
+     * 分页模糊查询二合一
+     *
+     * @param tbRole
+     * @return java.util.List<com.zs.xinguanmaterialmanager.entity.TbRole>
+     * @author Zanson
+     * @since 22:03 2021/12/7
+     **/
+    @Override
+    public List<TbRole> queryAll(TbRole tbRole) {
+        return tbRoleMapper.queryAll(tbRole);
+    }
+
+    /**
      * 新增数据
      *
      * @param tbRole 实例对象
      * @return 实例对象
      */
     @Override
-    public TbRole insert(TbRole tbRole) {
-        this.tbRoleMapper.insert(tbRole);
-        return tbRole;
+    public int insert(TbRole tbRole) {
+        return this.tbRoleMapper.insert(tbRole);
     }
 
     /**
@@ -48,9 +61,8 @@ public class TbRoleServiceImpl implements TbRoleService {
      * @return 实例对象
      */
     @Override
-    public TbRole update(TbRole tbRole) {
-        this.tbRoleMapper.update(tbRole);
-        return this.queryById(tbRole.getId());
+    public int update(TbRole tbRole) {
+        return this.tbRoleMapper.update(tbRole);
     }
 
     /**

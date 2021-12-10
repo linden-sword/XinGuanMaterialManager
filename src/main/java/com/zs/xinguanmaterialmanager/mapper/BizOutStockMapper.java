@@ -16,20 +16,20 @@ import java.util.List;
 public interface BizOutStockMapper {
 
     /**
-     * 通过ID查询单条数据
-     *
-     * @param id 主键
-     * @return 实例对象
+     * @Author yym
+     * @Description //TODO 根据ID查询单条数据
+     * @Date 2021/12/9 10:19
+     * @Param [id]
      */
     BizOutStock queryById(Long id);
 
     /**
-     * 新增数据
-     *
-     * @param bizOutStock 实例对象
-     * @return 影响行数
+     * @Author yym
+     * @Description //TODO 提交物资发放单
+     * @Date 2021/12/8 21:24
+     * @Param [bizOutStock]
      */
-    int insert(BizOutStock bizOutStock);
+    int addOutStock(BizOutStock bizOutStock);
 
     /**
      * 批量新增数据（MyBatis原生foreach方法）
@@ -57,12 +57,45 @@ public interface BizOutStockMapper {
     int update(BizOutStock bizOutStock);
 
     /**
-     * 通过主键删除数据
-     *
-     * @param id 主键
-     * @return 影响行数
+     * @Author yym
+     * @Description //TODO 通过ID删除物资发放单
+     * @Date 2021/12/9 9:57
+     * @Param [id]
      */
-    int deleteById(Long id);
+    int deleteOutStock(Long id);
 
+
+    /**
+     * @Author yym
+     * @Description //TODO 从回收站恢复数据
+     * @Date 2021/12/9 9:27
+     * @Param [id]
+     */
+    int backOutStock(Long id);
+
+    /**
+     * @Author yym
+     * @Description //TODO 查询出单列表
+     * @Date 2021/12/9 10:56
+     * @Param [pageNum, pageSize, bizOutStock]
+     */
+    List<BizOutStock> findOutStockList(BizOutStock bizOutStock);
+
+    /**
+     * @Author yym
+     * @Description //TODO 审核出库单
+     * @Date 2021/12/9 12:15
+     * @Param [id]
+     */
+    int auditOutStock(Long id);
+
+    /**
+     * @Author yym
+     * @Description //TODO 移入回收站
+     * @Date 2021/12/9 14:36
+     * @Param [id]
+     */
+    int removeOutStock(Long id);
+    
 }
 

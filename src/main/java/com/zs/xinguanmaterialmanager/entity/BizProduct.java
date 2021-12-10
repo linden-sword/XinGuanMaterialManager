@@ -1,7 +1,9 @@
 package com.zs.xinguanmaterialmanager.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * (BizProduct)实体类
@@ -11,6 +13,8 @@ import java.util.Date;
  */
 public class BizProduct implements Serializable {
     private static final long serialVersionUID = 869081148026700783L;
+
+    List<Long> categoryKeys = new ArrayList<Long>();
 
     private Long id;
     /**
@@ -65,7 +69,35 @@ public class BizProduct implements Serializable {
      * 是否删除:1物资正常,0:物资回收,2:物资审核中
      */
     private Integer status;
+    //库存数
+    private Integer stock;
 
+    private Integer count;
+
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
+
+    public Integer getStock() {
+        return stock;
+    }
+
+    public void setStock(Integer stock) {
+        this.stock = stock;
+    }
+
+    public List<Long> getCategoryKeys() {
+        return categoryKeys;
+    }
+
+    public void setCategoryKeys(List<Long> categoryKeys) {
+        this.categoryKeys = categoryKeys;
+    }
 
     public Long getId() {
         return id;
@@ -178,6 +210,7 @@ public class BizProduct implements Serializable {
     public void setStatus(Integer status) {
         this.status = status;
     }
+
 
 }
 

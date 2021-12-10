@@ -22,8 +22,19 @@
         from biz_out_stock_info
         where id = #{id}
     </select>
+    <!--根据out_num查p_num-->
+    <select id="queryByOutNum" resultMap="BizOutStockInfoMap">
+        select id,
+               out_num,
+               p_num,
+               product_number,
+               create_time,
+               modified_time
+        from biz_out_stock_info
+        where out_num = #{outNum}
+    </select>
 
-    <!--新增所有列-->
+    <!--     新增所有列      -->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
         insert into biz_out_stock_info(out_num, p_num, product_number, create_time, modified_time)
         values (#{outNum}, #{pNum}, #{productNumber}, #{createTime}, #{modifiedTime})
@@ -51,7 +62,7 @@
         modified_time = values(modified_time)
     </insert>
 
-    <!--通过主键修改数据-->
+    <!-- 通过主键修改数据-->
     <update id="update">
         update biz_out_stock_info
         <set>
@@ -74,7 +85,7 @@
         where id = #{id}
     </update>
 
-    <!--通过主键删除-->
+    <!--      通过主键删除     -->
     <delete id="deleteById">
         delete
         from biz_out_stock_info

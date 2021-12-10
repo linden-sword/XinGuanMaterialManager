@@ -24,6 +24,26 @@ public interface TbUserMapper {
     TbUser queryById(Long id);
 
     /**
+     * 通过username查询user
+     *
+     * @param username
+     * @return com.zs.xinguanmaterialmanager.entity.TbUser
+     * @author Zanson
+     * @since 16:44 2021/12/9
+     **/
+    TbUser findByUsername(String username);
+
+    /**
+     * 分页模糊查询二合一
+     *
+     * @param tbUser
+     * @return java.util.List<com.zs.xinguanmaterialmanager.entity.TbUser>
+     * @author Zanson
+     * @since 15:33 2021/12/7
+     **/
+    List<TbUser> findUserList(TbUser tbUser);
+
+    /**
      * 新增数据
      *
      * @param tbUser 实例对象

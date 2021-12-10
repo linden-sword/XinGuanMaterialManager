@@ -1,5 +1,7 @@
 package com.zs.xinguanmaterialmanager.entity;
 
+import lombok.ToString;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -9,6 +11,7 @@ import java.util.Date;
  * @author makejava
  * @since 2021-12-06 20:32:42
  */
+@ToString
 public class TbRole implements Serializable {
     private static final long serialVersionUID = 325977699776039314L;
     /**
