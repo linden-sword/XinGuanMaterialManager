@@ -1,6 +1,7 @@
 package com.zs.xinguanmaterialmanager.mapper;
 
 import com.zs.xinguanmaterialmanager.entity.BizInStock;
+import com.zs.xinguanmaterialmanager.vo.InStockVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -21,8 +22,13 @@ public interface BizInStockMapper {
      * @param id 主键
      * @return 实例对象
      */
-    BizInStock queryById(Object id);
+    BizInStock queryById(int id);
 
+    /**
+     *通过id或inNum查询入库表信息
+     */
+    List<BizInStock> findInStock(BizInStock bizInStock);
+//fan
     /**
      * 新增数据
      *
@@ -64,5 +70,15 @@ public interface BizInStockMapper {
      */
     int deleteById(Object id);
 
+    /**
+     * 通过inNUM删除入库表信息
+     */
+    int deleteInStock(String inNum);
+
+    /**
+     * 多条件模糊查询信息
+     */
+    List<InStockVO> findInStockList(InStockVO inStockVO);
+//fan
 }
 

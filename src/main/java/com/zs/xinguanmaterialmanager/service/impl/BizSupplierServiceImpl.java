@@ -1,11 +1,16 @@
 package com.zs.xinguanmaterialmanager.service.impl;
 
+
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.zs.xinguanmaterialmanager.entity.BizSupplier;
 import com.zs.xinguanmaterialmanager.mapper.BizSupplierMapper;
 import com.zs.xinguanmaterialmanager.service.BizSupplierService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
+import java.util.List;
+import java.util.Map;
 
 /**
  * (BizSupplier)表服务实现类
@@ -15,9 +20,9 @@ import javax.annotation.Resource;
  */
 @Service("bizSupplierService")
 public class BizSupplierServiceImpl implements BizSupplierService {
-    @Resource
+    @Autowired
     private BizSupplierMapper bizSupplierMapper;
-
+//fan
     /**
      * 通过ID查询单条数据
      *
@@ -26,7 +31,7 @@ public class BizSupplierServiceImpl implements BizSupplierService {
      */
     @Override
     public BizSupplier queryById(Long id) {
-        return this.bizSupplierMapper.queryById(id);
+        return bizSupplierMapper.queryById(id);
     }
 
     /**
@@ -36,9 +41,8 @@ public class BizSupplierServiceImpl implements BizSupplierService {
      * @return 实例对象
      */
     @Override
-    public BizSupplier insert(BizSupplier bizSupplier) {
-        this.bizSupplierMapper.insert(bizSupplier);
-        return bizSupplier;
+    public int insert(BizSupplier bizSupplier) {
+       return bizSupplierMapper.insert(bizSupplier);
     }
 
     /**
@@ -48,9 +52,8 @@ public class BizSupplierServiceImpl implements BizSupplierService {
      * @return 实例对象
      */
     @Override
-    public BizSupplier update(BizSupplier bizSupplier) {
-        this.bizSupplierMapper.update(bizSupplier);
-        return this.queryById(bizSupplier.getId());
+    public int update(BizSupplier bizSupplier) {
+        return bizSupplierMapper.update(bizSupplier);
     }
 
     /**
@@ -60,7 +63,43 @@ public class BizSupplierServiceImpl implements BizSupplierService {
      * @return 是否成功
      */
     @Override
-    public boolean deleteById(Long id) {
-        return this.bizSupplierMapper.deleteById(id) > 0;
+    public int deleteById(Long id) {
+        return bizSupplierMapper.deleteById(id);
     }
+
+
+    /**
+     * 所有来源
+     * @return
+     */
+    @Override
+    public PageInfo<BizSupplier> findAll(int pageNum,int pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
+
+        List<BizSupplier> bizSuppliers=  bizSupplierMapper.findAll();
+
+        PageInfo<BizSupplier> pageInfo=new PageInfo<>(bizSuppliers);
+
+        return pageInfo;
+    }
+
+    /**
+     * 根据来源名模糊查询
+     * @param
+     * @return
+     */
+    @Override
+    public PageInfo<BizSupplier> findSupplierList(Map<String,Object> map,BizSupplier bizSupplier) {
+        int pageNum=(int) map.get("pageNum");
+        int pageSize=(int) map.get("pageSize");
+
+        PageHelper.startPage(pageNum,pageSize);
+
+        List<BizSupplier> bizSupplierList=bizSupplierMapper.findSupplierList(bizSupplier);
+
+        PageInfo<BizSupplier> pageInfo=new PageInfo<>(bizSupplierList);
+
+        return pageInfo;
+    }
+    //fan
 }

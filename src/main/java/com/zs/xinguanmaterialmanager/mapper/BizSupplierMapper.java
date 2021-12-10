@@ -14,9 +14,9 @@ import java.util.List;
  */
 @Mapper
 public interface BizSupplierMapper {
-
+//fan
     /**
-     * 通过ID查询单条数据
+     * 通过ID查询
      *
      * @param id 主键
      * @return 实例对象
@@ -64,5 +64,20 @@ public interface BizSupplierMapper {
      */
     int deleteById(Long id);
 
+
+    /**
+     *所有来源
+     * @return
+     */
+    List<BizSupplier> findAll();
+
+    /**
+     * 根据来源名 模糊 查询
+     * @param
+     * @return
+     */
+    List<BizSupplier> findSupplierList(BizSupplier bizSupplier);
+
+//fan
 }
 

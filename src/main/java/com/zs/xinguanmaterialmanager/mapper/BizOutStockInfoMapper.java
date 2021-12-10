@@ -15,6 +15,8 @@ import java.util.List;
 @Mapper
 public interface BizOutStockInfoMapper {
 
+//fan
+
     /**
      * 通过ID查询单条数据
      *
@@ -71,6 +73,6 @@ public interface BizOutStockInfoMapper {
      * @Param [id]
      */
     int deleteById(Long id);
-
+//fan
 }
 

@@ -15,6 +15,14 @@ import java.util.List;
  */
 @Mapper
 public interface BizProductMapper {
+//fan
+    /**
+     * 通过ID查询单条数据
+     *
+     * @param id
+     * @return 实例对象
+     */
+    BizProduct queryById(Long id);
 
     /**
      * @Author yym
@@ -23,6 +31,25 @@ public interface BizProductMapper {
      * @Param [id]
      */
     BizProduct editProuductById(Long id);
+
+    /**
+     * 通过pNum
+     *
+     * @param pNum
+     * @return 实例对象
+     */
+    List<BizProduct> queryBypNum(String pNum);
+
+
+
+    /**
+     * 新增数据
+     *
+     * @param bizProduct 实例对象
+     * @return 影响行数
+     */
+    int insert(BizProduct bizProduct);
+
 
     /**
      * @Author yym
@@ -56,6 +83,24 @@ public interface BizProductMapper {
      * @return 影响行数
      */
     int update(BizProduct bizProduct);
+
+    /**
+     * 通过主键删除数据
+     *
+     * @param id
+     * @return 影响行数
+     */
+    int deleteById(Long id);
+
+    /**
+     * 通过inNum删除数据
+     *
+     * @param inNum
+     * @return 影响行数
+     */
+    int deleteInStock(String inNum);
+//fan
+
 
     /**
      * @Author yym
@@ -137,5 +182,6 @@ public interface BizProductMapper {
      * @Param [bizOutStock]
      */
     List<BizProduct> detailOutStock(BizOutStock bizOutStock);
+
 }
 

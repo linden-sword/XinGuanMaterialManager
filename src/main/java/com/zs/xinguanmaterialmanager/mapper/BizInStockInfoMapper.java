@@ -14,6 +14,23 @@ import java.util.List;
  */
 @Mapper
 public interface BizInStockInfoMapper {
+//fan
+    /**
+     * 通过inNum删除入库表info表信息
+     * @param inNum
+     * @return
+     */
+    int deleteInfo(String inNum);
+
+
+    /**
+     * 通过inNum查对象
+     * @param inNum
+     * @return
+     */
+    BizInStockInfo findByInNum(String inNum);
+
+
 
     /**
      * 通过ID查询单条数据
@@ -63,6 +80,9 @@ public interface BizInStockInfoMapper {
      * @return 影响行数
      */
     int deleteById(Long id);
+
+//fan
+
 
 }
 

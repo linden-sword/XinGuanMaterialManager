@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zs.xinguanmaterialmanager.mapper.BizProductMapper">
-
+    <!--fan-->
     <resultMap type="com.zs.xinguanmaterialmanager.entity.BizProduct" id="BizProductMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="pNum" column="p_num" jdbcType="VARCHAR"/>
@@ -18,6 +18,26 @@
         <result property="threeCategoryId" column="three_category_id" jdbcType="INTEGER"/>
         <result property="status" column="status" jdbcType="INTEGER"/>
     </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" parameterType="long" resultMap="BizProductMap">
+        select id,
+               p_num,
+               name,
+               image_url,
+               model,
+               unit,
+               remark,
+               sort,
+               create_time,
+               modified_time,
+               one_category_id,
+               two_category_id,
+               three_category_id,
+               status
+        from biz_product
+        where id= #{id}
+    </select>
 
     <!--   查询单个  -->
     <select id="editProuductById" parameterType="long" resultMap="BizProductMap">
@@ -38,6 +58,27 @@
         from biz_product
         where id = #{id}
     </select>
+
+    <!--通过pNum查询单个-->
+    <select id="queryBypNum" parameterType="string" resultMap="BizProductMap">
+        select id,
+               p_num,
+               name,
+               image_url,
+               model,
+               unit,
+               remark,
+               sort,
+               create_time,
+               modified_time,
+               one_category_id,
+               two_category_id,
+               three_category_id,
+               status
+        from biz_product
+        where p_num = #{pNum}
+    </select>
+
     <!--    查询全部 findAllStocks   -->
     <select id="findAllStocks" resultMap="BizProductMap">
         SELECT s.p_num,
@@ -53,6 +94,16 @@
           and s.`stock` > 0
 
     </select>
+
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="" useGeneratedKeys="true">
+        insert into biz_product(id, p_num, name, image_url, model, unit, remark, sort, create_time, modified_time,
+                                one_category_id, two_category_id, three_category_id, status)
+        values (#{id}, #{pNum}, #{name}, #{imageUrl}, #{model}, #{unit}, #{remark}, #{sort}, #{createTime},
+                #{modifiedTime}, #{oneCategoryId}, #{twoCategoryId}, #{threeCategoryId}, #{status})
+    </insert>
+
     <!--  新增所有列   -->
     <insert id="addProuduct" keyProperty="" useGeneratedKeys="true">
         insert into biz_product(id, p_num, name, image_url, model, unit, remark, sort, create_time, modified_time,
@@ -98,6 +149,62 @@
         status = values(status)
     </insert>
 
+    <!--通过主键修改数据-->
+    <update id="update">
+        update biz_product
+        <set>
+            <if test="id != null">
+                id = #{id},
+            </if>
+            <if test="pNum != null and pNum != ''">
+                p_num = #{pNum},
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="imageUrl != null and imageUrl != ''">
+                image_url = #{imageUrl},
+            </if>
+            <if test="model != null and model != ''">
+                model = #{model},
+            </if>
+            <if test="unit != null and unit != ''">
+                unit = #{unit},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="sort != null">
+                sort = #{sort},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="modifiedTime != null">
+                modified_time = #{modifiedTime},
+            </if>
+            <if test="oneCategoryId != null">
+                one_category_id = #{oneCategoryId},
+            </if>
+            <if test="twoCategoryId != null">
+                two_category_id = #{twoCategoryId},
+            </if>
+            <if test="threeCategoryId != null">
+                three_category_id = #{threeCategoryId},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+        </set>
+        where = #{}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById" parameterType="long">
+        delete
+        from biz_product
+        where id= #{id}
+    </delete>
     <!--   通过主键更新物资数据    -->
     <update id="updateProducts">
         update biz_product
@@ -154,6 +261,11 @@
         from biz_product
         where id = #{id}
     </delete>
+
+    <delete id="deleteInStock">
+
+    </delete>
+    <!--fan-->
 
     <!--    从回收站回复物资   -->
     <update id="backProuduct">

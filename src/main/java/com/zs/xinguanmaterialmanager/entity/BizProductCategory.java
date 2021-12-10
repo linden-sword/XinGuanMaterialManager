@@ -28,6 +28,7 @@ public class BizProductCategory implements Serializable {
      */
     private Integer sort;
 
+
     private Date createTime;
 
     private Date modifiedTime;
