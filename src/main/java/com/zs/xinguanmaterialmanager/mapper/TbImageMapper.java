@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+
 /**
  * (TbImage)表数据库访问层
  *
@@ -21,7 +22,17 @@ public interface TbImageMapper {
      * @param id 主键
      * @return 实例对象
      */
-    TbImage queryById(Long id);
+    TbImage queryById(long id);
+
+    /**
+     * 查询数据
+     */
+    List<TbImage> queryAll();
+
+    /**
+     * 通过图片路径，图片类型或者图片后缀名进行模糊查询
+     */
+    List<TbImage> queryAllLike(TbImage tbImage);
 
     /**
      * 新增数据
@@ -62,7 +73,6 @@ public interface TbImageMapper {
      * @param id 主键
      * @return 影响行数
      */
-    int deleteById(Long id);
+    int deleteById(long id);
 
 }
-

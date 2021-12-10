@@ -1,6 +1,10 @@
 package com.zs.xinguanmaterialmanager.service;
 
+import com.github.pagehelper.PageInfo;
 import com.zs.xinguanmaterialmanager.entity.TbLog;
+import com.zs.xinguanmaterialmanager.entity.TbLoginLog;
+
+import java.util.List;
 
 /**
  * 操作日志表(TbLog)表服务接口
@@ -10,13 +14,8 @@ import com.zs.xinguanmaterialmanager.entity.TbLog;
  */
 public interface TbLogService {
 
-    /**
-     * 通过ID查询单条数据
-     *
-     * @param Zanson 主键
-     * @return 实例对象
-     */
-    TbLog queryById(Long id);
+
+    PageInfo queryAll(TbLog tbLog, int pageNum, int pageSize);
 
     /**
      * 新增数据
@@ -27,19 +26,11 @@ public interface TbLogService {
     TbLog insert(TbLog tbLog);
 
     /**
-     * 修改数据
-     *
-     * @param tbLog 实例对象
-     * @return 实例对象
-     */
-    TbLog update(TbLog tbLog);
-
-    /**
      * 通过主键删除数据
      *
      * @param id 主键
      * @return 是否成功
      */
-    boolean deleteById(Long id);
+    int deleteById(long id);
 
 }

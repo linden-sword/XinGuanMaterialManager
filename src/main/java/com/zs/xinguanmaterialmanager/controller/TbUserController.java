@@ -208,7 +208,7 @@ public class TbUserController {
         //通过username查user、通过department_id查部门名称、通过user_role查角色、通过role查角色名称
         TbUser tbUser = tbUserService.findByUsername(username);
         //部门
-        TbDepartment department = departmentService.queryById(tbUser.getDepartmentId());
+        TbDepartment department = departmentService.edit(tbUser.getDepartmentId());
         //角色
         List<TbRole> tbRoleList = tbUserService.findUserRoles(tbUser.getId());
         Map<String, Object> map = new HashMap<>();

@@ -1,11 +1,16 @@
 package com.zs.xinguanmaterialmanager.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.zs.xinguanmaterialmanager.entity.BizHealth;
 import com.zs.xinguanmaterialmanager.mapper.BizHealthMapper;
 import com.zs.xinguanmaterialmanager.service.BizHealthService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
+import java.util.List;
+
 
 /**
  * (BizHealth)表服务实现类
@@ -27,6 +32,41 @@ public class BizHealthServiceImpl implements BizHealthService {
     @Override
     public BizHealth queryById(Long id) {
         return this.bizHealthMapper.queryById(id);
+    }
+
+    /**
+     * 查询数据
+     */
+    @Override
+    public List<BizHealth> queryAll() {
+        return bizHealthMapper.queryAll();
+    }
+
+    /**
+     * 分页查询
+     */
+    @Override
+    public PageInfo<BizHealth> findAllBizHealthByPage(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<BizHealth> bizHealths = bizHealthMapper.queryAll();
+        return new PageInfo<>(bizHealths);
+    }
+
+    /**
+     * 通过userID查询
+     */
+    @Override
+    public List<BizHealth> queryByUserId(Integer userId) {
+        return bizHealthMapper.queryByUserId(userId);
+    }
+
+    /**
+     * 通过userId查找到打卡最新的时间
+     */
+    @Override
+    public Date findLastTime(Integer userId) {
+        List<BizHealth> bizHealths = bizHealthMapper.queryByUserId(userId);
+        return bizHealths.get(bizHealths.size() - 1).getCreateTime();
     }
 
     /**

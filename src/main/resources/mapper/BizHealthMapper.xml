@@ -13,6 +13,21 @@
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
     </resultMap>
 
+
+    <!--查询所有-->
+    <select id="queryAll" resultMap="BizHealthMap">
+        select id,
+               address,
+               user_id,
+               situation,
+               touch,
+               passby,
+               reception,
+               create_time
+        from biz_health
+    </select>
+
+
     <!--查询单个-->
     <select id="queryById" resultMap="BizHealthMap">
         select id,
@@ -27,11 +42,29 @@
         where id = #{id}
     </select>
 
+
+    <!--通过userID查询-->
+    <select id="queryByUserId" resultMap="BizHealthMap">
+        select id,
+               address,
+               user_id,
+               situation,
+               touch,
+               passby,
+               reception,
+               create_time
+        from biz_health
+        where user_id = #{userId}
+        order by create_time
+    </select>
+
+
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
         insert into biz_health(address, user_id, situation, touch, passby, reception, create_time)
         values (#{address}, #{userId}, #{situation}, #{touch}, #{passby}, #{reception}, #{createTime})
     </insert>
+
 
     <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
         insert into biz_health(address, user_id, situation, touch, passby, reception, create_time)
@@ -41,6 +74,7 @@
             #{entity.reception}, #{entity.createTime})
         </foreach>
     </insert>
+
 
     <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
         insert into biz_health(address, user_id, situation, touch, passby, reception, create_time)
@@ -58,6 +92,7 @@
         reception = values(reception),
         create_time = values(create_time)
     </insert>
+
 
     <!--通过主键修改数据-->
     <update id="update">
@@ -88,6 +123,7 @@
         where id = #{id}
     </update>
 
+
     <!--通过主键删除-->
     <delete id="deleteById">
         delete
@@ -96,4 +132,3 @@
     </delete>
 
 </mapper>
-

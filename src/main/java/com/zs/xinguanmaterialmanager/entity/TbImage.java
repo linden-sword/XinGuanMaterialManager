@@ -1,5 +1,11 @@
 package com.zs.xinguanmaterialmanager.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -9,6 +15,10 @@ import java.util.Date;
  * @author makejava
  * @since 2021-12-06 20:32:37
  */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class TbImage implements Serializable {
     private static final long serialVersionUID = -47247321295882288L;
     /**
@@ -42,72 +52,16 @@ public class TbImage implements Serializable {
     /**
      * 创建时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", locale = "zh", timezone = "GMT+8")
     private Date createTime;
 
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
+    public TbImage(String path, Long size, String mediaType, String suffix, Integer height, Integer width, Date createTime) {
         this.path = path;
-    }
-
-    public Long getSize() {
-        return size;
-    }
-
-    public void setSize(Long size) {
         this.size = size;
-    }
-
-    public String getMediaType() {
-        return mediaType;
-    }
-
-    public void setMediaType(String mediaType) {
         this.mediaType = mediaType;
-    }
-
-    public String getSuffix() {
-        return suffix;
-    }
-
-    public void setSuffix(String suffix) {
         this.suffix = suffix;
-    }
-
-    public Integer getHeight() {
-        return height;
-    }
-
-    public void setHeight(Integer height) {
         this.height = height;
-    }
-
-    public Integer getWidth() {
-        return width;
-    }
-
-    public void setWidth(Integer width) {
         this.width = width;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
-
 }
-

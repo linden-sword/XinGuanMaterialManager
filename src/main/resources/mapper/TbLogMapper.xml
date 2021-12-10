@@ -14,85 +14,46 @@
         <result property="location" column="location" jdbcType="VARCHAR"/>
     </resultMap>
 
-    <!--查询单个-->
-    <select id="queryById" resultMap="TbLogMap">
-        select id,
-               username,
-               operation,
-               time,
-               method,
-               params,
-               ip,
-               create_time,
-               location
+
+    <!--查询所有-->
+    <select id="queryAll" resultMap="TbLogMap" resultType="list">
+        select
+        id, username, operation,time,method,params,ip,create_time,location
         from tb_log
-        where id = #{id}
+        <where>
+            <if test="username != null">
+                and username = #{username}
+            </if>
+            <if test="operation != null">
+                and operation = #{operation}
+            </if>
+            <if test="time != null">
+                and time = #{time}
+            </if>
+            <if test="method != null">
+                and method = #{method}
+            </if>
+            <if test="params != null">
+                and params = #{params}
+            </if>
+            <if test="ip != null">
+                and ip = #{ip}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="location != null">
+                and location = #{location}
+            </if>
+        </where>
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into tb_log(username, operation, time, method, params, ip, create_time, location)
-        values (#{username}, #{operation}, #{time}, #{method}, #{params}, #{ip}, #{createTime}, #{location})
+        insert into tb_log
+        values (null, #{username}, #{operation}, #{time}, #{method}, #{params}, #{ip}, #{createTime}, #{location})
     </insert>
 
-    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
-        insert into tb_log(username, operation, time, method, params, ip, create_time, location)
-        values
-        <foreach collection="entities" item="entity" separator=",">
-            (#{entity.username}, #{entity.operation}, #{entity.time}, #{entity.method}, #{entity.params}, #{entity.ip},
-            #{entity.createTime}, #{entity.location})
-        </foreach>
-    </insert>
-
-    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
-        insert into tb_log(username, operation, time, method, params, ip, create_time, location)
-        values
-        <foreach collection="entities" item="entity" separator=",">
-            (#{entity.username}, #{entity.operation}, #{entity.time}, #{entity.method}, #{entity.params}, #{entity.ip},
-            #{entity.createTime}, #{entity.location})
-        </foreach>
-        on duplicate key update
-        username = values(username),
-        operation = values(operation),
-        time = values(time),
-        method = values(method),
-        params = values(params),
-        ip = values(ip),
-        create_time = values(create_time),
-        location = values(location)
-    </insert>
-
-    <!--通过主键修改数据-->
-    <update id="update">
-        update tb_log
-        <set>
-            <if test="username != null and username != ''">
-                username = #{username},
-            </if>
-            <if test="operation != null and operation != ''">
-                operation = #{operation},
-            </if>
-            <if test="time != null">
-                time = #{time},
-            </if>
-            <if test="method != null and method != ''">
-                method = #{method},
-            </if>
-            <if test="params != null and params != ''">
-                params = #{params},
-            </if>
-            <if test="ip != null and ip != ''">
-                ip = #{ip},
-            </if>
-            <if test="createTime != null">
-                create_time = #{createTime},
-            </if>
-            <if test="location != null and location != ''">
-                location = #{location},
-            </if>
-        </set>
-        where id = #{id}
-    </update>
 
     <!--通过主键删除-->
     <delete id="deleteById">
@@ -102,4 +63,3 @@
     </delete>
 
 </mapper>
-

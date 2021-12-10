@@ -1,5 +1,12 @@
 package com.zs.xinguanmaterialmanager.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -9,7 +16,11 @@ import java.util.Date;
  * @author makejava
  * @since 2021-12-06 20:32:40
  */
-public class TbLoginLog implements Serializable {
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+public class TbLoginLog implements Serializable {//孙某
     private static final long serialVersionUID = 970499434283193865L;
     /**
      * id
@@ -22,6 +33,8 @@ public class TbLoginLog implements Serializable {
     /**
      * 登录时间
      */
+//    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date loginTime;
     /**
      * 登录地点
@@ -40,62 +53,4 @@ public class TbLoginLog implements Serializable {
      */
     private String userBrowser;
 
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public Date getLoginTime() {
-        return loginTime;
-    }
-
-    public void setLoginTime(Date loginTime) {
-        this.loginTime = loginTime;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public String getIp() {
-        return ip;
-    }
-
-    public void setIp(String ip) {
-        this.ip = ip;
-    }
-
-    public String getUserSystem() {
-        return userSystem;
-    }
-
-    public void setUserSystem(String userSystem) {
-        this.userSystem = userSystem;
-    }
-
-    public String getUserBrowser() {
-        return userBrowser;
-    }
-
-    public void setUserBrowser(String userBrowser) {
-        this.userBrowser = userBrowser;
-    }
-
 }
-

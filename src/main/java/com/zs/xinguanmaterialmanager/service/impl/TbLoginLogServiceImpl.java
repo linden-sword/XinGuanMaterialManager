@@ -1,11 +1,14 @@
 package com.zs.xinguanmaterialmanager.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.zs.xinguanmaterialmanager.entity.TbLoginLog;
 import com.zs.xinguanmaterialmanager.mapper.TbLoginLogMapper;
 import com.zs.xinguanmaterialmanager.service.TbLoginLogService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 登录日志表(TbLoginLog)表服务实现类
@@ -13,20 +16,22 @@ import javax.annotation.Resource;
  * @author Zanson
  * @since 2021-12-06 20:32:40
  */
-@Service("tbLoginLogService")
+@Service
 public class TbLoginLogServiceImpl implements TbLoginLogService {
     @Resource
     private TbLoginLogMapper tbLoginLogMapper;
 
     /**
-     * 通过ID查询单条数据
+     * 查询所有
      *
-     * @param id 主键
-     * @return 实例对象
+     * @return
      */
     @Override
-    public TbLoginLog queryById(Long id) {
-        return this.tbLoginLogMapper.queryById(id);
+    public PageInfo queryAll(TbLoginLog tbLoginLog, int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<TbLoginLog> tbLoginLogList = tbLoginLogMapper.queryAll(tbLoginLog);
+        com.github.pagehelper.PageInfo pageInfo = new com.github.pagehelper.PageInfo(tbLoginLogList);
+        return pageInfo;
     }
 
     /**
@@ -37,20 +42,8 @@ public class TbLoginLogServiceImpl implements TbLoginLogService {
      */
     @Override
     public TbLoginLog insert(TbLoginLog tbLoginLog) {
-        this.tbLoginLogMapper.insert(tbLoginLog);
+        tbLoginLogMapper.insert(tbLoginLog);
         return tbLoginLog;
-    }
-
-    /**
-     * 修改数据
-     *
-     * @param tbLoginLog 实例对象
-     * @return 实例对象
-     */
-    @Override
-    public TbLoginLog update(TbLoginLog tbLoginLog) {
-        this.tbLoginLogMapper.update(tbLoginLog);
-        return this.queryById(tbLoginLog.getId());
     }
 
     /**
@@ -60,7 +53,9 @@ public class TbLoginLogServiceImpl implements TbLoginLogService {
      * @return 是否成功
      */
     @Override
-    public boolean deleteById(Long id) {
-        return this.tbLoginLogMapper.deleteById(id) > 0;
+    public int deleteById(long id) {
+        System.out.println("ser" + id);
+        int i = tbLoginLogMapper.deleteById(id);
+        return i;
     }
 }

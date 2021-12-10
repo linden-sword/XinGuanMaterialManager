@@ -1,5 +1,10 @@
 package com.zs.xinguanmaterialmanager.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -9,6 +14,10 @@ import java.util.Date;
  * @author makejava
  * @since 2021-12-06 20:32:36
  */
+
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class TbDepartment implements Serializable {
     private static final long serialVersionUID = -63085169894799084L;
 
@@ -17,23 +26,6 @@ public class TbDepartment implements Serializable {
      * 系名
      */
     private String name;
-    /**
-     * 系办公电话
-     */
-    private String phone;
-    /**
-     * 办公室地点
-     */
-    private String address;
-    /**
-     * 创建时间
-     */
-    private Date createTime;
-    /**
-     * 修改时间
-     */
-    private Date modifiedTime;
-
 
     public Long getId() {
         return id;
@@ -83,5 +75,21 @@ public class TbDepartment implements Serializable {
         this.modifiedTime = modifiedTime;
     }
 
-}
+    /**
+     * 系办公电话
+     */
+    private String phone;
+    /**
+     * 办公室地点
+     */
+    private String address;
+    /**
+     * 创建时间
+     */
+    private Date createTime;
+    /**
+     * 修改时间
+     */
+    private Date modifiedTime;
 
+}

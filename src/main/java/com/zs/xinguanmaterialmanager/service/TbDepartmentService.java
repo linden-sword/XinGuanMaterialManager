@@ -1,6 +1,9 @@
 package com.zs.xinguanmaterialmanager.service;
 
+import com.github.pagehelper.PageInfo;
 import com.zs.xinguanmaterialmanager.entity.TbDepartment;
+
+import java.util.List;
 
 /**
  * (TbDepartment)表服务接口
@@ -16,30 +19,49 @@ public interface TbDepartmentService {
      * @param id 主键
      * @return 实例对象
      */
-    TbDepartment queryById(Long id);
+    TbDepartment edit(long id);
+
+    /**
+     * 查询所有
+     *
+     * @param
+     * @return
+     */
+    List<TbDepartment> findAll();
+
+    /**
+     * 模糊查询
+     *
+     * @param department
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    PageInfo findDepartmentList(TbDepartment department, int pageNum, int pageSize);
 
     /**
      * 新增数据
      *
      * @param tbDepartment 实例对象
-     * @return 实例对象
+     * @return 影响行数
      */
-    TbDepartment insert(TbDepartment tbDepartment);
+    int add(TbDepartment tbDepartment);
+
 
     /**
      * 修改数据
      *
      * @param tbDepartment 实例对象
-     * @return 实例对象
+     * @return 影响行数
      */
-    TbDepartment update(TbDepartment tbDepartment);
+    int update(long id, TbDepartment tbDepartment);
 
     /**
      * 通过主键删除数据
      *
      * @param id 主键
-     * @return 是否成功
+     * @return 影响行数
      */
-    boolean deleteById(Long id);
+    int deleteById(long id);
 
 }

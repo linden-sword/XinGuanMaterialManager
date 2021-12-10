@@ -27,11 +27,53 @@
         where id = #{id}
     </select>
 
+
+    <!--查询所有-->
+    <select id="queryAll" resultMap="TbImageMap">
+        select id,
+               path,
+               size,
+               media_type,
+               suffix,
+               height,
+               width,
+               create_time
+        from tb_image
+    </select>
+
+
+    <!--通过图片路径，图片类型或者图片后缀名进行模糊查询-->
+    <select id="queryAllLike" resultMap="TbImageMap">
+        select
+        id,
+        path,
+        size,
+        media_type,
+        suffix,
+        height,
+        width,
+        create_time
+        from tb_image
+        <where>
+            <if test="path != null and path != ''">
+                and path like "%"#{path}"%"
+            </if>
+            <if test="mediaType != null and mediaType != ''">
+                and media_type like "%"#{mediaType}"%"
+            </if>
+            <if test="suffix != null and suffix != ''">
+                and suffix like "%"#{suffix}"%"
+            </if>
+        </where>
+    </select>
+
+
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
         insert into tb_image(path, size, media_type, suffix, height, width, create_time)
         values (#{path}, #{size}, #{mediaType}, #{suffix}, #{height}, #{width}, #{createTime})
     </insert>
+
 
     <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
         insert into tb_image(path, size, media_type, suffix, height, width, create_time)
@@ -41,6 +83,7 @@
             #{entity.createTime})
         </foreach>
     </insert>
+
 
     <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
         insert into tb_image(path, size, media_type, suffix, height, width, create_time)
@@ -58,6 +101,7 @@
         width = values(width),
         create_time = values(create_time)
     </insert>
+
 
     <!--通过主键修改数据-->
     <update id="update">
@@ -88,6 +132,7 @@
         where id = #{id}
     </update>
 
+
     <!--通过主键删除-->
     <delete id="deleteById">
         delete
@@ -96,4 +141,3 @@
     </delete>
 
 </mapper>
-

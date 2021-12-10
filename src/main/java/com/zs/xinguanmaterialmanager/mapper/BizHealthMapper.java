@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+
 /**
  * (BizHealth)表数据库访问层
  *
@@ -21,7 +22,17 @@ public interface BizHealthMapper {
      * @param id 主键
      * @return 实例对象
      */
-    BizHealth queryById(Long id);
+    BizHealth queryById(long id);
+
+    /**
+     * 查询数据
+     */
+    List<BizHealth> queryAll();
+
+    /**
+     * 通过userID查询
+     */
+    List<BizHealth> queryByUserId(Integer userId);
 
     /**
      * 新增数据
@@ -62,7 +73,6 @@ public interface BizHealthMapper {
      * @param id 主键
      * @return 影响行数
      */
-    int deleteById(Long id);
+    int deleteById(long id);
 
 }
-
