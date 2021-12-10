@@ -15,7 +15,7 @@
         <result property="priority" column="priority" jdbcType="INTEGER"/>
     </resultMap>
 
-    <!--查询单个-->
+    <!--       查询单个       -->
     <select id="queryById" resultMap="BizOutStockMap">
         select id,
                out_num,
@@ -32,7 +32,7 @@
     </select>
 
     <!--新增所有列-->
-    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+    <insert id="addOutStock" keyProperty="id" useGeneratedKeys="true">
         insert into biz_out_stock(out_num, type, operator, create_time, product_number, consumer_id, remark, status,
                                   priority)
         values (#{outNum}, #{type}, #{operator}, #{createTime}, #{productNumber}, #{consumerId}, #{remark}, #{status},
@@ -104,12 +104,58 @@
         where id = #{id}
     </update>
 
-    <!--通过主键删除-->
-    <delete id="deleteById">
+    <!--      通过主键删除     -->
+    <delete id="deleteOutStock">
         delete
         from biz_out_stock
         where id = #{id}
     </delete>
+
+    <!--    从回收站回收数据     -->
+    <update id="backOutStock">
+        update biz_out_stock
+        set status = 0
+        where id = #{id}
+    </update>
+    <!--    查询出库单列表     -->
+    <select id="findOutStockList" resultMap="BizOutStockMap">
+        select bos.*,
+        bc.address,
+        bc.contact,
+        bc.name,
+        bc.phone,
+        bc.sort
+        from biz_out_stock bos,
+        biz_consumer bc
+        <where>
+            bos.consumer_id = bc.id
+            <if test="outNum !=null ">
+                and out_pum like '%' #{outNum} '%'
+            </if>
+            <if test="type !=null ">
+                and type = #{type}
+            </if>
+            <if test="status !=null ">
+                and status=#{status}
+            </if>
+        </where>
+    </select>
+
+
+    <!--      审核出库单    -->
+    <update id="auditOutStock">
+        update biz_out_stock
+        set status = 0
+        where id = #{id}
+    </update>
+
+    <!--     移入回收站      -->
+    <update id="removeOutStock">
+        update biz_out_stock
+        set status = 1
+        where id = #{id}
+    </update>
+
 
 </mapper>
 

@@ -19,8 +19,8 @@
         <result property="status" column="status" jdbcType="INTEGER"/>
     </resultMap>
 
-    <!--查询单个-->
-    <select id="queryById" parameterType="long" resultMap="BizProductMap">
+    <!--   查询单个  -->
+    <select id="editProuductById" parameterType="long" resultMap="BizProductMap">
         select id,
                p_num,
                name,
@@ -36,15 +36,29 @@
                three_category_id,
                status
         from biz_product
-        where id= #{id}
+        where id = #{id}
     </select>
+    <!--    查询全部 findAllStocks   -->
+    <select id="findAllStocks" resultMap="BizProductMap">
+        SELECT s.p_num,
+               s.stock,
+               p.name,
+               p.id,
+               p.model,
+               p.unit,
+               p.image_url
+        FROM biz_product_stock s
+           , biz_product p
+        WHERE s.`p_num` = p.`p_num`
+          and s.`stock` > 0
 
-    <!--新增所有列-->
-    <insert id="insert" keyProperty="" useGeneratedKeys="true">
+    </select>
+    <!--  新增所有列   -->
+    <insert id="addProuduct" keyProperty="" useGeneratedKeys="true">
         insert into biz_product(id, p_num, name, image_url, model, unit, remark, sort, create_time, modified_time,
                                 one_category_id, two_category_id, three_category_id, status)
         values (#{id}, #{pNum}, #{name}, #{imageUrl}, #{model}, #{unit}, #{remark}, #{sort}, #{createTime},
-                #{modifiedTime}, #{oneCategoryId}, #{twoCategoryId}, #{threeCategoryId}, #{status})
+                #{modifiedTime}, #{oneCategoryId}, #{twoCategoryId}, #{threeCategoryId}, 2)
     </insert>
 
     <insert id="insertBatch" keyProperty="" useGeneratedKeys="true">
@@ -84,8 +98,8 @@
         status = values(status)
     </insert>
 
-    <!--通过主键修改数据-->
-    <update id="update">
+    <!--   通过主键更新物资数据    -->
+    <update id="updateProducts">
         update biz_product
         <set>
             <if test="id != null">
@@ -131,15 +145,155 @@
                 status = #{status},
             </if>
         </set>
-        where = #{}
+        where id= #{id}
     </update>
 
-    <!--通过主键删除-->
-    <delete id="deleteById" parameterType="long">
+    <!--    通过主键删除   -->
+    <delete id="deleteProuductById" parameterType="long">
         delete
         from biz_product
-        where id= #{id}
+        where id = #{id}
     </delete>
 
+    <!--    从回收站回复物资   -->
+    <update id="backProuduct">
+        update biz_product
+        set status = 0
+        where id = #{id}
+    </update>
+
+    <!--   物资列表,根据物资名模糊查询   -->
+    <select id="findProductList" resultMap="BizProductMap">
+        select id,
+        p_num,
+        name,
+        image_url,
+        model,
+        unit,
+        remark,
+        sort,
+        create_time,
+        modified_time,
+        one_category_id,
+        two_category_id,
+        three_category_id,
+        status
+        from biz_product
+        <where>
+            <if test="oneCategoryId !=null ">
+                and one_category_id=#{oneCategoryId}
+            </if>
+            <if test="twoCategoryId !=null ">
+                and two_category_id=#{twoCategoryId}
+            </if>
+            <if test="threeCategoryId !=null ">
+                and three_category_id=#{threeCategoryId}
+            </if>
+            <if test="name !=null ">
+                and name like '%' #{name} '%'
+            </if>
+            <if test="status !=null ">
+                and status=#{status}
+            </if>
+        </where>
+    </select>
+
+    <!--  模糊查询库存物资   -->
+    <select id="findProductStocks" resultMap="BizProductMap">
+        SELECT s.p_num,
+        s.stock,
+        p.name,
+        p.id,
+        p.model,
+        p.unit,
+        p.image_url
+        FROM biz_product_stock s
+        , biz_product p
+        <where>
+            s.`p_num` = p.`p_num`
+            and s.`stock` > 0
+            <if test="oneCategoryId !=null ">
+                and one_category_id=#{oneCategoryId}
+            </if>
+            <if test="twoCategoryId !=null ">
+                and two_category_id=#{twoCategoryId}
+            </if>
+            <if test="threeCategoryId !=null ">
+                and three_category_id=#{threeCategoryId}
+            </if>
+            <if test="name !=null ">
+                and name like '%' #{name} '%'
+            </if>
+            <if test="status !=null ">
+                and status=#{status}
+            </if>
+        </where>
+    </select>
+    <!--   查询可入库物资列表（所有物资）  -->
+    <select id="findProducts" resultMap="BizProductMap">
+        select id,
+        p_num,
+        name,
+        image_url,
+        model,
+        unit,
+        remark,
+        sort,
+        create_time,
+        modified_time,
+        one_category_id,
+        two_category_id,
+        three_category_id,
+        status
+        from biz_product
+        <where>
+            <if test="oneCategoryId !=null ">
+                and one_category_id=#{oneCategoryId}
+            </if>
+            <if test="twoCategoryId !=null ">
+                and two_category_id=#{twoCategoryId}
+            </if>
+            <if test="threeCategoryId !=null ">
+                and three_category_id=#{threeCategoryId}
+            </if>
+            <if test="name !=null ">
+                and name like '%' #{name} '%'
+            </if>
+            <if test="status !=null ">
+                and status=#{status}
+            </if>
+        </where>
+    </select>
+
+    <!--    审核物资  -->
+    <update id="auditProducts">
+        update biz_product
+        set status = 0
+        where id = #{id}
+    </update>
+
+    <!--   物资移入回收站    -->
+    <update id="removeProducts">
+        update biz_product
+        set status = 1
+        where id = #{id}
+    </update>
+
+    <!--     发放单明细查询    -->
+    <select id="detailOutStock" resultMap="BizProductMap">
+        select p.id,
+        p.name,
+        p.p_num,
+        p.image_url,
+        p.model,
+        p.unit,
+        osi.product_number count
+        from biz_out_stock_info osi,
+        biz_product p
+        <where>
+            osi.out_num = #{outNum}
+            and osi.p_num = p.p_num
+        </where>
+    </select>
 </mapper>
 

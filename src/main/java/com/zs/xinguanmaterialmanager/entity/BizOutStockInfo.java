@@ -24,6 +24,16 @@ public class BizOutStockInfo implements Serializable {
 
     private Date modifiedTime;
 
+    public BizOutStockInfo() {
+    }
+
+    public BizOutStockInfo(String outNum, String pNum, Integer productNumber, Date createTime, Date modifiedTime) {
+        this.outNum = outNum;
+        this.pNum = pNum;
+        this.productNumber = productNumber;
+        this.createTime = createTime;
+        this.modifiedTime = modifiedTime;
+    }
 
     public Long getId() {
         return id;

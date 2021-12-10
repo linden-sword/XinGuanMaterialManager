@@ -17,12 +17,21 @@
         where id = #{id}
     </select>
 
-    <!--新增所有列-->
+    <select id="queryBypNum" resultMap="BizProductStockMap">
+        select id,
+               p_num,
+               stock
+        from biz_product_stock
+        where p_num = #{pNum}
+    </select>
+
+    <!--     新增所有列    -->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
         insert into biz_product_stock(p_num, stock)
         values (#{pNum}, #{stock})
     </insert>
 
+    <!--插入数据-->
     <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
         insert into biz_product_stock(p_num, stock)
         values
@@ -42,7 +51,7 @@
         stock = values(stock)
     </insert>
 
-    <!--通过主键修改数据-->
+    <!--       通过主键修改数据       -->
     <update id="update">
         update biz_product_stock
         <set>
@@ -61,6 +70,12 @@
         delete
         from biz_product_stock
         where id = #{id}
+    </delete>
+    <!--通过pNum删除-->
+    <delete id="deleteBypNum">
+        delete
+        from biz_product_stock
+        where p_num = #{pNum}
     </delete>
 
 </mapper>

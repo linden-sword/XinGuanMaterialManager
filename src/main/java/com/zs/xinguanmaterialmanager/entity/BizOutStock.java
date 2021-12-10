@@ -50,6 +50,71 @@ public class BizOutStock implements Serializable {
      */
     private Integer priority;
 
+    private String address;
+
+    private String contact;
+
+    private String name;
+
+    private String phone;
+
+    private Integer sort;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public Integer getSort() {
+        return sort;
+    }
+
+    public void setSort(Integer sort) {
+        this.sort = sort;
+    }
+
+    public BizOutStock() {
+    }
+
+    public BizOutStock(Long id, String outNum, Integer type, String operator, Date createTime, Integer productNumber, Long consumerId, String remark, Integer status, Integer priority) {
+        this.id = id;
+        this.outNum = outNum;
+        this.type = type;
+        this.operator = operator;
+        this.createTime = createTime;
+        this.productNumber = productNumber;
+        this.consumerId = consumerId;
+        this.remark = remark;
+        this.status = status;
+        this.priority = priority;
+    }
 
     public Long getId() {
         return id;

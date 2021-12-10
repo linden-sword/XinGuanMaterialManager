@@ -13,8 +13,8 @@
         <result property="contact" column="contact" jdbcType="VARCHAR"/>
     </resultMap>
 
-    <!--查询单个-->
-    <select id="queryById" resultMap="BizConsumerMap">
+    <!--       查询单个         -->
+    <select id="findById" resultMap="BizConsumerMap">
         select id,
                name,
                address,
@@ -27,8 +27,8 @@
         where id = #{id}
     </select>
 
-    <!--新增所有列-->
-    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+    <!--      新增所有列     -->
+    <insert id="addConsumer" keyProperty="id" useGeneratedKeys="true">
         insert into biz_consumer(name, address, create_time, modified_time, phone, sort, contact)
         values (#{name}, #{address}, #{createTime}, #{modifiedTime}, #{phone}, #{sort}, #{contact})
     </insert>
@@ -60,7 +60,7 @@
     </insert>
 
     <!--通过主键修改数据-->
-    <update id="update">
+    <update id="updateConsumer">
         update biz_consumer
         <set>
             <if test="name != null and name != ''">
@@ -89,11 +89,48 @@
     </update>
 
     <!--通过主键删除-->
-    <delete id="deleteById">
+    <delete id="deleteConsumer">
         delete
         from biz_consumer
         where id = #{id}
     </delete>
 
+    <!--查询所有-->
+    <select id="findAllConsumer" resultMap="BizConsumerMap">
+        select id,
+               name,
+               address,
+               create_time,
+               modified_time,
+               phone,
+               sort,
+               contact
+        from biz_consumer
+    </select>
+    <!-- 根据条件模糊查询-->
+    <select id="findConsumerList" resultMap="BizConsumerMap">
+        select id,
+        name,
+        address,
+        create_time,
+        modified_time,
+        phone,
+        sort,
+        contact
+        from biz_consumer
+        <where>
+
+            <if test="address != null">
+                and address like '%' #{address} '%'
+            </if>
+            <if test="contact!=null">
+                and contact like '%' #{contact} '%'
+            </if>
+            <if test="name!=null">
+                and name like '%' #{name} '%'
+            </if>
+
+        </where>
+    </select>
 </mapper>
 
