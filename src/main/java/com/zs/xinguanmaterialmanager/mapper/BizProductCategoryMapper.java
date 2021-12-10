@@ -14,7 +14,7 @@ import java.util.List;
  */
 @Mapper
 public interface BizProductCategoryMapper {
-
+//fan
     /**
      * 通过ID查询单条数据
      *
@@ -23,6 +23,18 @@ public interface BizProductCategoryMapper {
      */
     BizProductCategory queryById(Long id);
 
+    /**
+     * 查询所有
+     * @return
+     */
+    List<BizProductCategory> findAll();
+
+    /**
+     * 查询父级下的所有子级
+     * @param pid
+     * @return
+     */
+    List<BizProductCategory> findAllByPid(Long pid);
     /**
      * 新增数据
      *
@@ -64,5 +76,12 @@ public interface BizProductCategoryMapper {
      */
     int deleteById(Long id);
 
+    /**
+     * 根据id查询pid
+     * @param id
+     * @return
+     */
+    List<BizProductCategory> findById(long id);
+    //fan
 }
 

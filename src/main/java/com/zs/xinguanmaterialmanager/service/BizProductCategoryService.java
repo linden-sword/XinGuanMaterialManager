@@ -1,6 +1,10 @@
 package com.zs.xinguanmaterialmanager.service;
 
+import com.github.pagehelper.PageInfo;
 import com.zs.xinguanmaterialmanager.entity.BizProductCategory;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * (BizProductCategory)表服务接口
@@ -9,22 +13,34 @@ import com.zs.xinguanmaterialmanager.entity.BizProductCategory;
  * @since 2021-12-06 20:32:32
  */
 public interface BizProductCategoryService {
-
+//fan
     /**
      * 通过ID查询单条数据
      *
-     * @param Zanson 主键
+     * @param
      * @return 实例对象
      */
     BizProductCategory queryById(Long id);
 
+    /**
+     * 查询所有父级
+     * @return
+     */
+    PageInfo<BizProductCategory> findAll(int pageNum,int pageSize);
+
+    /**
+     * 查询所有子级
+     * @param
+     * @return
+     */
+    PageInfo<BizProductCategory> findAllByPid(Map<String,Object> map);
     /**
      * 新增数据
      *
      * @param bizProductCategory 实例对象
      * @return 实例对象
      */
-    BizProductCategory insert(BizProductCategory bizProductCategory);
+    int insert(BizProductCategory bizProductCategory);
 
     /**
      * 修改数据
@@ -32,7 +48,7 @@ public interface BizProductCategoryService {
      * @param bizProductCategory 实例对象
      * @return 实例对象
      */
-    BizProductCategory update(BizProductCategory bizProductCategory);
+    int update(BizProductCategory bizProductCategory);
 
     /**
      * 通过主键删除数据
@@ -40,6 +56,13 @@ public interface BizProductCategoryService {
      * @param id 主键
      * @return 是否成功
      */
-    boolean deleteById(Long id);
+    int deleteById(Long id);
 
+    /**
+     *  获取pid=父级id 的 子级id
+     * @param id
+     * @return
+     */
+    List<BizProductCategory> findById(long id);
+    //fan
 }

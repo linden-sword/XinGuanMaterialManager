@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zs.xinguanmaterialmanager.mapper.BizProductMapper">
-
+    <!--fan-->
     <resultMap type="com.zs.xinguanmaterialmanager.entity.BizProduct" id="BizProductMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="pNum" column="p_num" jdbcType="VARCHAR"/>
@@ -36,8 +36,29 @@
                three_category_id,
                status
         from biz_product
-        where id= #{id}
+        where id = #{id}
     </select>
+
+    <!--通过pNum查询单个-->
+    <select id="queryBypNum" parameterType="string" resultMap="BizProductMap">
+        select id,
+               p_num,
+               name,
+               image_url,
+               model,
+               unit,
+               remark,
+               sort,
+               create_time,
+               modified_time,
+               one_category_id,
+               two_category_id,
+               three_category_id,
+               status
+        from biz_product
+        where p_num = #{pNum}
+    </select>
+
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="" useGeneratedKeys="true">
@@ -138,8 +159,12 @@
     <delete id="deleteById" parameterType="long">
         delete
         from biz_product
-        where id= #{id}
+        where id = #{id}
     </delete>
 
+    <delete id="deleteInStock">
+
+    </delete>
+    <!--fan-->
 </mapper>
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zs.xinguanmaterialmanager.mapper.BizProductCategoryMapper">
-
+    <!--fan-->
     <resultMap type="com.zs.xinguanmaterialmanager.entity.BizProductCategory" id="BizProductCategoryMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="name" column="name" jdbcType="VARCHAR"/>
@@ -23,6 +23,37 @@
                pid
         from biz_product_category
         where id = #{id}
+    </select>
+
+<!--    查询所有-->
+    <select id="findAll" resultType="com.zs.xinguanmaterialmanager.entity.BizProductCategory" parameterType="long">
+        select id,
+               name,
+               remark,
+               sort,
+               create_time,
+               modified_time,
+               pid
+        from biz_product_category
+        where pid = 0
+    </select>
+
+<!--    查询所有子级-->
+    <select id="findAllByPid" resultType="com.zs.xinguanmaterialmanager.entity.BizProductCategory" parameterType="long">
+        select id,
+               name,
+               remark,
+               sort,
+               create_time,
+               modified_time,
+               pid
+        from biz_product_category
+        where pid = #{pid}
+    </select>
+
+<!--    获取pid=父级id 的 子级id-->
+    <select id="findById"  resultType="com.zs.xinguanmaterialmanager.entity.BizProductCategory" parameterType="long">
+    select id from  biz_product_category where pid=#{id}
     </select>
 
     <!--新增所有列-->
@@ -88,6 +119,6 @@
         from biz_product_category
         where id = #{id}
     </delete>
-
+    <!--fan-->
 </mapper>
 
