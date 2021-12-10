@@ -3,8 +3,11 @@ package com.zs.xinguanmaterialmanager.controller;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.zs.xinguanmaterialmanager.entity.TbDepartment;
+import com.zs.xinguanmaterialmanager.entity.TbMenu;
 import com.zs.xinguanmaterialmanager.entity.TbRole;
 import com.zs.xinguanmaterialmanager.entity.TbUser;
+import com.zs.xinguanmaterialmanager.service.TbDepartmentService;
 import com.zs.xinguanmaterialmanager.service.TbUserService;
 import com.zs.xinguanmaterialmanager.util.JWTUtil;
 import com.zs.xinguanmaterialmanager.util.R;
@@ -20,7 +23,9 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 用户表(TbUser)控制层
@@ -33,6 +38,8 @@ public class TbUserController {
 
     @Resource
     private TbUserService tbUserService;
+    @Resource
+    private TbDepartmentService departmentService;
 
     /**
      * 添加用户
@@ -145,13 +152,24 @@ public class TbUserController {
     }
 
 
-    //    GET /api/user/findMenu
-    //    加载菜单(通过用户查询菜单树)(登录后 : 加载当前用户的菜单树)
+    /**
+     * 加载菜单(通过用户查询菜单树)(登录后 : 加载当前用户的菜单树)
+     *
+     * @param request
+     * @return com.zs.xinguanmaterialmanager.util.R
+     * @author Zanson
+     * @since 16:31 2021/12/10
+     **/
     @GetMapping("/XinGuan/user/findMenu")
-    public R findMenu() {
+    public R findMenu(HttpServletRequest request) {
         //没有参数，需要通过Token获取
-
-        return R.ok().setData("OK");
+        String jwtToken = request.getHeader("token");
+        DecodedJWT decodedJWT = JWTUtil.parseData(jwtToken);
+        //从JWT中解析到username
+        String username = decodedJWT.getClaim("username").asString();
+        TbUser tbUser = tbUserService.findByUsername(username);
+        List<TbMenu> menuList = tbUserService.findMenu(tbUser.getId());
+        return R.ok().setData(menuList);
     }
 
 
@@ -175,11 +193,11 @@ public class TbUserController {
     /**
      * 用户信息(首页头像右边的登录信息:头像、账号、昵称、部门、角色)
      *
-     * @author Zanson
-     * @since 9:29 2021/12/10
      * @param request
      * @return com.zs.xinguanmaterialmanager.util.R
-    **/
+     * @author Zanson
+     * @since 9:29 2021/12/10
+     **/
     @GetMapping("/XinGuan/user/info")
     public R userLoginInfo(HttpServletRequest request) {
         //没有参数，需要通过Token获取
@@ -187,12 +205,19 @@ public class TbUserController {
         DecodedJWT decodedJWT = JWTUtil.parseData(jwtToken);
         //从JWT中解析到username
         String username = decodedJWT.getClaim("username").asString();
-        System.out.println("///=== UserInfoUserName: " + username);
         //通过username查user、通过department_id查部门名称、通过user_role查角色、通过role查角色名称
         TbUser tbUser = tbUserService.findByUsername(username);
-
-
-        return R.ok().setData("OK");
+        //部门
+        TbDepartment department = departmentService.queryById(tbUser.getDepartmentId());
+        //角色
+        List<TbRole> tbRoleList = tbUserService.findUserRoles(tbUser.getId());
+        Map<String, Object> map = new HashMap<>();
+        map.put("avatar", tbUser.getAvatar());
+        map.put("username", tbUser.getUsername());
+        map.put("nickname", tbUser.getUsername());
+        map.put("department", department.getName());
+        map.put("roleList", tbRoleList);
+        return R.ok().setData(map);
     }
 
 
@@ -273,8 +298,23 @@ public class TbUserController {
     }
 
 
-//    POST /api/user/{id}/assignRoles
-//   分配角色
+    /**
+     * 给用户分配角色
+     *
+     * @param id, rids
+     * @return com.zs.xinguanmaterialmanager.util.R
+     * @author Zanson
+     * @since 17:18 2021/12/10
+     **/
+    @PostMapping("/XinGuan/user/{id}/assignRoles")
+    public R fenPeiRole(@PathVariable("id") Long id, Long[] rids) {
+        for (Long rid : rids) {
+            if (tbUserService.insertUserRole(id, rid) == 0) {
+                return R.fail().setData("Fail");
+            }
+        }
+        return R.ok().setData("OK");
+    }
 
 
     /**
@@ -286,7 +326,7 @@ public class TbUserController {
      * @since 17:31 2021/12/7
      **/
     @GetMapping("/XinGuan/user/{id}/roles")
-    public R queryRoles(@PathVariable("id") Long id) {
+    public R queryRoles(@PathVariable("id") Long id, Long[] rids) {
         List<TbRole> tbRoleList = tbUserService.findUserRoles(id);
         return R.ok().setData(tbRoleList);
     }

@@ -1,6 +1,8 @@
 package com.zs.xinguanmaterialmanager.service;
 
+import com.zs.xinguanmaterialmanager.entity.TbMenu;
 import com.zs.xinguanmaterialmanager.entity.TbRole;
+import com.zs.xinguanmaterialmanager.entity.TbRoleMenu;
 
 import java.util.List;
 
@@ -19,6 +21,26 @@ public interface TbRoleService {
      * @return 实例对象
      */
     TbRole queryById(Long id);
+
+    /**
+     * 根据角色查询角色的权限
+     *
+     * @author Zanson
+     * @since 15:33 2021/12/10
+     * @param roleId
+     * @return com.zs.xinguanmaterialmanager.entity.TbMenu
+    **/
+    List<TbMenu> queryMenuByRoleId(Long roleId);
+
+    /**
+     * 授权
+     *
+     * @author Zanson
+     * @since 15:12 2021/12/10
+     * @param roleId, menuId
+     * @return int
+    **/
+    int addRoleMenu(Long roleId,Long menuId);
 
     /**
      * 模糊分页查询二合一

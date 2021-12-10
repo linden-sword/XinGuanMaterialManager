@@ -1,12 +1,19 @@
 package com.zs.xinguanmaterialmanager.service.impl;
 
+import com.zs.xinguanmaterialmanager.entity.TbMenu;
 import com.zs.xinguanmaterialmanager.entity.TbRole;
+import com.zs.xinguanmaterialmanager.entity.TbRoleMenu;
+import com.zs.xinguanmaterialmanager.mapper.TbMenuMapper;
 import com.zs.xinguanmaterialmanager.mapper.TbRoleMapper;
+import com.zs.xinguanmaterialmanager.mapper.TbRoleMenuMapper;
 import com.zs.xinguanmaterialmanager.service.TbRoleService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 角色表(TbRole)表服务实现类
@@ -18,6 +25,10 @@ import java.util.List;
 public class TbRoleServiceImpl implements TbRoleService {
     @Resource
     private TbRoleMapper tbRoleMapper;
+    @Resource
+    private TbRoleMenuMapper tbRoleMenuMapper;
+    @Resource
+    private TbMenuMapper tbMenuMapper;
 
     /**
      * 通过ID查询单条数据
@@ -28,6 +39,41 @@ public class TbRoleServiceImpl implements TbRoleService {
     @Override
     public TbRole queryById(Long id) {
         return this.tbRoleMapper.queryById(id);
+    }
+
+    /**
+     * 根据角色查询角色的权限
+     *
+     * @author Zanson
+     * @since 15:34 2021/12/10
+     * @param roleId
+     * @return com.zs.xinguanmaterialmanager.entity.TbMenu
+    **/
+    @Override
+    public List<TbMenu> queryMenuByRoleId(Long roleId) {
+        List<TbRoleMenu> tbRoleMenu = tbRoleMenuMapper.queryByRoleId(roleId);
+        List<TbMenu> menuList = new ArrayList<>();
+        for (TbRoleMenu tbRoleMenu1:tbRoleMenu){
+            TbMenu tbMenu = tbMenuMapper.queryById(tbRoleMenu1.getMenuId());
+            menuList.add(tbMenu);
+        }
+        return menuList;
+    }
+
+    /**
+     * 授权
+     *
+     * @author Zanson
+     * @since 15:13 2021/12/10
+     * @param roleId, menuId
+     * @return int
+    **/
+    @Override
+    public int addRoleMenu(Long roleId, Long menuId) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("roleId",roleId);
+        map.put("menuId",menuId);
+        return tbRoleMenuMapper.insertRoleMenu(map);
     }
 
     /**

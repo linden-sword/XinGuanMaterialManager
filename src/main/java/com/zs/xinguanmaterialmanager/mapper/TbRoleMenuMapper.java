@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 角色菜单关联表(TbRoleMenu)表数据库访问层
@@ -24,12 +25,30 @@ public interface TbRoleMenuMapper {
     TbRoleMenu queryById(Integer id);
 
     /**
+     * 通过RoleID查询单条数据
+     *
+     * @param RoleId 主键
+     * @return 实例对象
+     */
+    List<TbRoleMenu> queryByRoleId(Long RoleId);
+
+    /**
      * 新增数据
      *
      * @param tbRoleMenu 实例对象
      * @return 影响行数
      */
     int insert(TbRoleMenu tbRoleMenu);
+
+    /**
+     * 角色授权
+     *
+     * @author Zanson
+     * @since 14:04 2021/12/10
+     * @param map
+     * @return int
+    **/
+    int insertRoleMenu(Map<String,Object> map);
 
     /**
      * 批量新增数据（MyBatis原生foreach方法）

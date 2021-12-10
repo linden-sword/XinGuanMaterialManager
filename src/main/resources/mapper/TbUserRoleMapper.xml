@@ -17,6 +17,21 @@
         where id = #{id}
     </select>
 
+    <!--通过userID查询userRole-->
+    <select id="queryUserRoleByUserId" resultMap="TbUserRoleMap">
+        select user_id,
+               role_id,
+               id
+        from tb_user_role
+        where user_id = #{userId}
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insertUserRole" parameterType="map">
+        insert into tb_user_role(user_id, role_id)
+        values (#{userId}, #{roleId})
+    </insert>
+
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
         insert into tb_user_role(user_id, role_id)
@@ -64,4 +79,3 @@
     </delete>
 
 </mapper>
-

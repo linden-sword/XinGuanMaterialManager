@@ -17,6 +17,21 @@
         where id = #{id}
     </select>
 
+    <!--查询单个ByRoleId-->
+    <select id="queryByRoleId" resultMap="TbRoleMenuMap">
+        select role_id,
+               menu_id,
+               id
+        from tb_role_menu
+        where role_id = #{roleId}
+    </select>
+
+    <!--角色授权-->
+    <insert id="insertRoleMenu" parameterType="map">
+        insert into tb_role_menu(role_id, menu_id)
+        values (#{roleId}, #{menuId})
+    </insert>
+
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
         insert into tb_role_menu(role_id, menu_id)

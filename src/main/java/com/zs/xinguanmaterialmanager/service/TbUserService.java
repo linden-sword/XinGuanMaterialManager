@@ -1,9 +1,11 @@
 package com.zs.xinguanmaterialmanager.service;
 
+import com.zs.xinguanmaterialmanager.entity.TbMenu;
 import com.zs.xinguanmaterialmanager.entity.TbRole;
 import com.zs.xinguanmaterialmanager.entity.TbUser;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 用户表(TbUser)表服务接口
@@ -32,6 +34,16 @@ public interface TbUserService {
     TbUser findByUsername(String username);
 
     /**
+     * 新增UserRole
+     *
+     * @param userId, roleId
+     * @return int
+     * @author Zanson
+     * @since 17:15 2021/12/10
+     **/
+    int insertUserRole(Long userId, Long roleId);
+
+    /**
      * 分页模糊查询二合一
      *
      * @param tbUser
@@ -41,6 +53,15 @@ public interface TbUserService {
      **/
     List<TbUser> findUserList(TbUser tbUser);
 
+    /**
+     * 加载菜单(通过用户查询菜单树)(登录后 : 加载当前用户的菜单树)
+     *
+     * @param tbUserId
+     * @return java.util.List<com.zs.xinguanmaterialmanager.entity.TbMenu>
+     * @author Zanson
+     * @since 16:08 2021/12/10
+     **/
+    List<TbMenu> findMenu(Long tbUserId);
 
     /**
      * 新增数据

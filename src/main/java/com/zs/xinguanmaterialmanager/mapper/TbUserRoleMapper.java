@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 用户角色关联表(TbUserRole)表数据库访问层
@@ -40,6 +41,16 @@ public interface TbUserRoleMapper {
      * @return 影响行数
      */
     int insert(TbUserRole tbUserRole);
+
+    /**
+     * 新增UserRole
+     *
+     * @author Zanson
+     * @since 17:11 2021/12/10
+     * @param map
+     * @return int
+    **/
+    int insertUserRole(Map<String,Object> map);
 
     /**
      * 批量新增数据（MyBatis原生foreach方法）
