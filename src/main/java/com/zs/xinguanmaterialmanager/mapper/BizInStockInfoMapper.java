@@ -28,7 +28,7 @@ public interface BizInStockInfoMapper {
      * @param inNum
      * @return
      */
-    BizInStockInfo findByInNum(String inNum);
+    List<BizInStockInfo> findByInNum(String inNum);
 
 
 
@@ -82,6 +82,9 @@ public interface BizInStockInfoMapper {
     int deleteById(Long id);
 
 //fan
+
+
+
 
 
 }

@@ -99,7 +99,7 @@ public class TbUserController {
      * @author Zanson
      * @since 10:48 2021/12/9
      **/
-    @PostMapping("/XinGuan/user/excel")
+    @GetMapping("/XinGuan/user/excel")
     public void excelDownload(HttpServletResponse response) throws IOException {
         //表头数据
         String[] header = {"编号", "用户名", "昵称", "邮箱", "电话号码", "创建时间", "修改时间", "性别", "密码盐值", "用户类型", "用户密码", "出生日期", "头像Url"};
@@ -163,7 +163,7 @@ public class TbUserController {
     @GetMapping("/XinGuan/user/findMenu")
     public R findMenu(HttpServletRequest request) {
         //没有参数，需要通过Token获取
-        String jwtToken = request.getHeader("token");
+        String jwtToken = request.getHeader("Authorization");
         DecodedJWT decodedJWT = JWTUtil.parseData(jwtToken);
         //从JWT中解析到username
         String username = decodedJWT.getClaim("username").asString();
@@ -201,7 +201,7 @@ public class TbUserController {
     @GetMapping("/XinGuan/user/info")
     public R userLoginInfo(HttpServletRequest request) {
         //没有参数，需要通过Token获取
-        String jwtToken = request.getHeader("token");
+        String jwtToken = request.getHeader("Authorization");
         DecodedJWT decodedJWT = JWTUtil.parseData(jwtToken);
         //从JWT中解析到username
         String username = decodedJWT.getClaim("username").asString();
@@ -229,7 +229,7 @@ public class TbUserController {
      * @author Zanson
      * @since 9:19 2021/12/10
      **/
-    @PostMapping("/XinGuan/user/login")
+    @GetMapping("/XinGuan/user/login")
     public R login(TbUser tbUser, HttpServletRequest request) {
         //登录
         //获取当前用户

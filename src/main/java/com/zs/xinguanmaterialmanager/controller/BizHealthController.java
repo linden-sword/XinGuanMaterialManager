@@ -17,7 +17,7 @@ import java.util.Date;
  * @since 2021-12-06 20:32:24
  */
 @RestController
-@RequestMapping("/XinGuan/bizHealth")
+@RequestMapping("/XinGuan/health")
 public class BizHealthController {
     @Resource
     private BizHealthService bizHealthService;

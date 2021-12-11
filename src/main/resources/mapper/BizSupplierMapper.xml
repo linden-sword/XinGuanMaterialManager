@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zs.xinguanmaterialmanager.mapper.BizSupplierMapper">
 
-<!--fan-->
+    <!--fan-->
     <!--查询单个-->
     <select id="queryById" resultType="com.zs.xinguanmaterialmanager.entity.BizSupplier" parameterType="long">
-               name,
+        select name,
                address,
                email,
                phone,
@@ -18,7 +18,7 @@
     </select>
 
 
-<!--    所有来源-->
+    <!--    所有来源-->
     <select id="findAll" resultType="com.zs.xinguanmaterialmanager.entity.BizSupplier">
         select id,
                name,
@@ -32,30 +32,31 @@
         from biz_supplier
     </select>
 
-<!--    模糊查询来源-->
-    <select id="findSupplierList" resultType="com.zs.xinguanmaterialmanager.entity.BizSupplier" parameterType="com.zs.xinguanmaterialmanager.entity.BizSupplier">
+    <!--    模糊查询来源-->
+    <select id="findSupplierList" resultType="com.zs.xinguanmaterialmanager.entity.BizSupplier"
+            parameterType="com.zs.xinguanmaterialmanager.entity.BizSupplier">
         select id,
-               name,
-               address,
-               email,
-               phone,
-               create_time,
-               modified_time,
-               sort,
-               contact
+        name,
+        address,
+        email,
+        phone,
+        create_time,
+        modified_time,
+        sort,
+        contact
         from biz_supplier
         <where>
-            <if test="name !=null and name != '' " >
+            <if test="name !=null and name != '' ">
                 name like "%"#{name}"%"
             </if>
-            <if test="address !=null and address != '' " >
-               and address like "%"#{address}"%"
+            <if test="address !=null and address != '' ">
+                and address like "%"#{address}"%"
             </if>
-            <if test="phone !=null and phone != '' " >
-               and phone like "%"#{phone}"%"
+            <if test="phone !=null and phone != '' ">
+                and phone like "%"#{phone}"%"
             </if>
         </where>
-</select>
+    </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
@@ -128,6 +129,6 @@
         from biz_supplier
         where id = #{id}
     </delete>
- <!--fan-->
+    <!--fan-->
 </mapper>
 

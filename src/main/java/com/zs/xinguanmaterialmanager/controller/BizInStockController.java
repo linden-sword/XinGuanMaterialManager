@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 //fan
 /**
  * (BizOutStock)控制层
@@ -23,7 +25,7 @@ import java.util.ArrayList;
  * @since 2021-12-06 20:32:28
  */
 @RestController
-@RequestMapping("/bizInStock")
+@RequestMapping("/XinGuan/inStock")
 public class BizInStockController {
     @Autowired
     private BizInStockServiceImpl inStockService;
@@ -96,16 +98,15 @@ public class BizInStockController {
      * @param pageSize
      * @return
      */
-    @GetMapping("/detail/{id}")
-    public R detail(@PathVariable int id ,int pageNum,int pageSize){
-        PageHelper.startPage(pageNum, pageSize);
-        PageInfo<BizProduct> bizProductPageInfo = inStockService.detail2(id, pageNum, pageSize);
+    @RequestMapping("/detail")
+    public R detail( int id ,int pageNum,int pageSize){
+        System.out.println("111"+id);
+        PageInfo info = inStockService.detail2(id, pageNum, pageSize);
         BizSupplier bizSupplier = inStockService.detail1(id);
-        ArrayList<Object> objects = new ArrayList<>();
-        objects.add(bizSupplier);
-        objects.add(bizSupplier);
-        PageInfo pageInfo = new PageInfo(objects);
-        return R.ok().setData(pageInfo);
+        Map map=new HashMap();
+        map.put("明细头",bizSupplier);
+        map.put("商品明细",info);
+        return R.ok().setData(map);
     }
 
 

@@ -1,10 +1,8 @@
 package com.zs.xinguanmaterialmanager.shiro;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.zs.xinguanmaterialmanager.entity.TbUser;
 import com.zs.xinguanmaterialmanager.util.JWTUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.mgt.SessionContext;
 import org.apache.shiro.web.servlet.ShiroHttpServletRequest;
@@ -41,7 +39,7 @@ public class MySessionManager extends DefaultWebSessionManager {
      **/
     @Override
     protected Serializable getSessionId(ServletRequest request, ServletResponse response) {
-        String token = WebUtils.toHttp(request).getHeader("token");
+        String token = WebUtils.toHttp(request).getHeader("Authorization");
         System.out.println("///=== Token: "+token);
         if (token == null || token.trim().equals("") || !JWTUtil.parseToken(token)) {
             //按默认规则从cookie取sessionId(就是没有ID创建一个ID)
@@ -86,7 +84,6 @@ public class MySessionManager extends DefaultWebSessionManager {
             Serializable id = session.getId();
 
             //获取当前登录的用户
-//            TbUser user = (TbUser) SecurityUtils.getSubject().getPrincipal();
             String username = (String) request.getAttribute("username");
             System.out.println("///=== LoginUserName(MySessionManagerOnStart): "+username);
 
@@ -94,7 +91,9 @@ public class MySessionManager extends DefaultWebSessionManager {
             map.put("username",username);
 
             String token = JWTUtil.toToken("zs", "java", id.toString(), map);
-            response.setHeader("token", token);
+            response.addHeader("token", token);
+            //允许token跨域
+            response.addHeader("Access-Control-Expose-Headers","token");
 
             request.removeAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID_SOURCE);
             request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_IS_NEW, Boolean.TRUE);

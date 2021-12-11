@@ -11,12 +11,14 @@ import com.zs.xinguanmaterialmanager.mapper.BizInStockMapper;
 import com.zs.xinguanmaterialmanager.mapper.BizProductMapper;
 import com.zs.xinguanmaterialmanager.mapper.BizSupplierMapper;
 import com.zs.xinguanmaterialmanager.service.BizInStockService;
+import com.zs.xinguanmaterialmanager.vo.InStockInfoProVO;
 import com.zs.xinguanmaterialmanager.vo.InStockVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -96,19 +98,17 @@ public class BizInStockServiceImpl implements BizInStockService {
         return bizInStockMapper.update(bizInStock);
     }
 
-
+private BizProductMapper bizProductMapper;
     /**
      * 查询明细
      */
-    public PageInfo<BizProduct> detail2(int id, int pageNum, int pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
+    public PageInfo detail2(int id, int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
         BizInStock inStock = bizInStockMapper.queryById(id);
 
-        BizInStockInfo byInNum = inStockInfoMapper.findByInNum(inStock.getInNum());
+        List<InStockInfoProVO> detail = productMapper.finddetail(inStock.getInNum());
 
-        List<BizProduct> bizProducts = productMapper.queryBypNum(byInNum.getPNum());
-
-        PageInfo<BizProduct> pageInfo = new PageInfo<>(bizProducts);
+        PageInfo<InStockInfoProVO> pageInfo =new PageInfo<>(detail);
         return pageInfo;
     }
 

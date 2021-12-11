@@ -1,6 +1,7 @@
 package com.zs.xinguanmaterialmanager.mapper;
 
 import com.zs.xinguanmaterialmanager.entity.BizInStock;
+import com.zs.xinguanmaterialmanager.vo.InStockInfoProVO;
 import com.zs.xinguanmaterialmanager.vo.InStockVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -80,5 +81,8 @@ public interface BizInStockMapper {
      */
     List<InStockVO> findInStockList(InStockVO inStockVO);
 //fan
+
+
+
 }
 

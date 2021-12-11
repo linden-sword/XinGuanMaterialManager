@@ -44,7 +44,6 @@ public class MyRealm extends AuthorizingRealm {
         String username = (String) authenticationToken.getPrincipal();
         //去数据库中查询该用户
         TbUser user = tbUserMapper.findByUsername(username);
-//        System.out.println("================"+user.getUsername()+user.getPassword());
 
         if (user == null) {
             return null;

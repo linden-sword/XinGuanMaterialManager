@@ -40,7 +40,7 @@
     </select>
 
     <!--   查询单个  -->
-    <select id="editProuductById" parameterType="long" resultMap="BizProductMap">
+    <select id="editProuductById" parameterType="long" resultType="com.zs.xinguanmaterialmanager.entity.BizProduct">
         select id,
                p_num,
                name,
@@ -60,7 +60,7 @@
     </select>
 
     <!--通过pNum查询单个-->
-    <select id="queryBypNum" parameterType="string" resultMap="BizProductMap">
+    <select id="queryBypNum" parameterType="string" resultType="com.zs.xinguanmaterialmanager.entity.BizProduct">
         select id,
                p_num,
                name,
@@ -406,6 +406,12 @@
             osi.out_num = #{outNum}
             and osi.p_num = p.p_num
         </where>
+    </select>
+
+
+    <select id="finddetail" parameterType="string" resultType="com.zs.xinguanmaterialmanager.vo.InStockInfoProVO">
+        select  p.name,p.image_url,p.model,p.unit,isi.p_num,isi.product_number
+        from biz_in_stock_info isi,biz_product p where isi.in_num=#{inNum} and isi.p_num=p.p_num
     </select>
 </mapper>
 

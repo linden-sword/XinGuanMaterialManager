@@ -21,7 +21,7 @@ import java.util.Date;
  * @since 2021-12-06 20:32:38
  */
 @RestController
-@RequestMapping("/XinGuan/tbImage")
+@RequestMapping("/XinGuan/upload")
 @CrossOrigin
 public class TbImageController {
     @Resource
