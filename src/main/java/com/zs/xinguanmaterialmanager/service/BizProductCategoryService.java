@@ -27,6 +27,7 @@ public interface BizProductCategoryService {
      * @return
      */
     PageInfo<BizProductCategory> findAll(int pageNum,int pageSize);
+    List<BizProductCategory> findAll();
 
     /**
      * 查询所有子级
@@ -64,5 +65,14 @@ public interface BizProductCategoryService {
      * @return
      */
     List<BizProductCategory> findById(long id);
+
+    /**
+     * 父类树
+     * @return
+     */
+    List<BizProductCategory> findById1();
+
+    List<BizProductCategory> listWithTree();
     //fan
+    List<BizProductCategory>  getChildrens(BizProductCategory root,List<BizProductCategory> all);
 }

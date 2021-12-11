@@ -1,7 +1,12 @@
 package com.zs.xinguanmaterialmanager.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * (BizProductCategory)实体类
@@ -9,6 +14,9 @@ import java.util.Date;
  * @author makejava
  * @since 2021-12-06 20:32:31
  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class BizProductCategory implements Serializable {
     private static final long serialVersionUID = 183370887078162633L;
     /**
@@ -38,61 +46,10 @@ public class BizProductCategory implements Serializable {
     private Long pid;
 
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    private List<BizProductCategory> children  ;
 
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
-    }
-
-    public Integer getSort() {
-        return sort;
-    }
-
-    public void setSort(Integer sort) {
-        this.sort = sort;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getModifiedTime() {
-        return modifiedTime;
-    }
-
-    public void setModifiedTime(Date modifiedTime) {
-        this.modifiedTime = modifiedTime;
-    }
-
-    public Long getPid() {
-        return pid;
-    }
-
-    public void setPid(Long pid) {
-        this.pid = pid;
-    }
 
 }
 

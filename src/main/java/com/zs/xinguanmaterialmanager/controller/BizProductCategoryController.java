@@ -1,8 +1,6 @@
 package com.zs.xinguanmaterialmanager.controller;
 
-import com.github.pagehelper.PageInfo;
 import com.zs.xinguanmaterialmanager.entity.BizProductCategory;
-import com.zs.xinguanmaterialmanager.entity.BizSupplier;
 import com.zs.xinguanmaterialmanager.service.BizProductCategoryService;
 import com.zs.xinguanmaterialmanager.util.R;
 import org.springframework.web.bind.annotation.*;
@@ -45,15 +43,24 @@ public class BizProductCategoryController {
     }
 
     /**
-     * 查询所有分类
-     * @param pageNum
-     * @param pageSize
+     *
      * @return
      */
     @GetMapping("/findAll")
-    public PageInfo<BizProductCategory> findAll(int pageNum, int pageSize){
-        return bizProductCategoryService.findAll(pageNum,pageSize);
+    public R findAll(){
+        return R.ok().setData(bizProductCategoryService.findAll());
     }
+
+
+//     /**  父类树
+//     * @param pageNum
+//     * @param pageSize
+//     */
+    @GetMapping("/categoryTree")
+    public R findAll1(){
+        return R.ok().setData(bizProductCategoryService.listWithTree());
+    }
+
 
     /**
      * 查询所有子类
@@ -63,12 +70,12 @@ public class BizProductCategoryController {
      * @return
      */
     @GetMapping("/findProductCategoryLis")
-    public PageInfo<BizSupplier> findSupplierList(int pageNum,int pageSize,long pid){
+    public R findSupplierList(int pageNum,int pageSize,long pid){
         Map map =new HashMap();
         map.put("pageNum",pageNum);
         map.put("pageSize",pageSize);
         map.put("pid",pid);
-        return bizProductCategoryService.findAllByPid(map);
+        return R.ok().setData(bizProductCategoryService.findAllByPid(map));
     }
 
 
@@ -78,8 +85,8 @@ public class BizProductCategoryController {
      * @return
      */
     @GetMapping("/edit")
-    public BizProductCategory queryById(long id){
-        return bizProductCategoryService.queryById(id);
+    public R queryById(long id){
+        return R.ok().setData(bizProductCategoryService.queryById(id));
 
     }
 

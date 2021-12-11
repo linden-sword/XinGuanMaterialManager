@@ -5,7 +5,7 @@
 <!--fan-->
     <!--查询单个-->
     <select id="queryById" resultType="com.zs.xinguanmaterialmanager.entity.BizSupplier" parameterType="long">
-               name,
+        select name,
                address,
                email,
                phone,

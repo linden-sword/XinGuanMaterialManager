@@ -229,7 +229,7 @@ public class TbUserController {
      * @author Zanson
      * @since 9:19 2021/12/10
      **/
-    @PostMapping("/XinGuan/user/login")
+    @GetMapping("/XinGuan/user/login")
     public R login(TbUser tbUser, HttpServletRequest request) {
         //登录
         //获取当前用户

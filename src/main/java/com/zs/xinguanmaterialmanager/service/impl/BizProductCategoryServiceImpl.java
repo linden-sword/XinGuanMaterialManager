@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * (BizProductCategory)表服务实现类
@@ -49,6 +50,10 @@ public class BizProductCategoryServiceImpl implements BizProductCategoryService 
         return pageInfo;
     }
 
+    @Override
+    public List<BizProductCategory> findAll() {
+        return bizProductCategoryMapper.findAll();
+    }
     /**
      * 查询所有子级
      * @param
@@ -106,5 +111,37 @@ public class BizProductCategoryServiceImpl implements BizProductCategoryService 
     public List<BizProductCategory> findById(long id) {
         return bizProductCategoryMapper.findById(id);
     }
-//fan
+
+
+    /**
+     * 父类树
+     */
+    public  List<BizProductCategory> findById1(){
+        return  bizProductCategoryMapper.findAll();
+    }
+
+    @Override
+    public List<BizProductCategory> listWithTree() {
+        List<BizProductCategory> biz= bizProductCategoryMapper.listWithTree();
+        List<BizProductCategory> collect = biz.stream().filter(bizProductCategory ->
+                bizProductCategory.getPid() == 0
+        ).map((menu)->{
+            menu.setChildren(getChildrens(menu,biz));
+            return menu;
+        }).collect(Collectors.toList());
+        return collect;
+    }
+
+    //递归查找所有菜单的子菜单
+    @Override
+    public List<BizProductCategory>  getChildrens(BizProductCategory root,List<BizProductCategory> all){
+        List<BizProductCategory> childern = all.stream().filter(bizProductCategory ->{
+          return bizProductCategory.getPid() == root.getId();
+        }).map(bizProductCategory -> {
+            bizProductCategory.setChildren(getChildrens(bizProductCategory,all));
+            return bizProductCategory;
+        }).collect(Collectors.toList());
+        return childern;
+    }
+
 }

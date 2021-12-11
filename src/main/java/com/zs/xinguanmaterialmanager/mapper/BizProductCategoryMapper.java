@@ -28,6 +28,7 @@ public interface BizProductCategoryMapper {
      * @return
      */
     List<BizProductCategory> findAll();
+    List<BizProductCategory> findAll1();
 
     /**
      * 查询父级下的所有子级
@@ -82,6 +83,12 @@ public interface BizProductCategoryMapper {
      * @return
      */
     List<BizProductCategory> findById(long id);
+
+    List<BizProductCategory> selectList();
+
+    List<BizProductCategory> listWithTree();
+
+
     //fan
 }
 

@@ -37,6 +37,16 @@
         from biz_product_category
         where pid = 0
     </select>
+    <select id="findAll1" resultType="com.zs.xinguanmaterialmanager.entity.BizProductCategory" parameterType="long">
+        select id,
+               name,
+               remark,
+               sort,
+               create_time,
+               modified_time,
+               pid
+        from biz_product_category
+    </select>
 
 <!--    查询所有子级-->
     <select id="findAllByPid" resultType="com.zs.xinguanmaterialmanager.entity.BizProductCategory" parameterType="long">
@@ -55,6 +65,19 @@
     <select id="findById"  resultType="com.zs.xinguanmaterialmanager.entity.BizProductCategory" parameterType="long">
     select id from  biz_product_category where pid=#{id}
     </select>
+
+    <select id="selectList" resultType="com.zs.xinguanmaterialmanager.entity.BizProductCategory">
+        select *
+        from biz_product_category
+    </select>
+
+    <select id="listWithTree" resultType="com.zs.xinguanmaterialmanager.entity.BizProductCategory">
+        select *
+        from biz_product_category
+    </select>
+
+
+
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
