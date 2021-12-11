@@ -25,7 +25,7 @@ public class BizSupplierController {
 
     @PostMapping("/add")
 
-    public R insert(@RequestBody BizSupplier bizSupplier){
+    public R insert( BizSupplier bizSupplier){
         int i = bizSupplierService.insert(bizSupplier);
         if (i==1){
             return  R.ok().setData("添加成功!");
@@ -41,8 +41,8 @@ public class BizSupplierController {
      * @param id
      * @return
      */
-    @DeleteMapping("/delete")
-    public R delete(long id){
+    @DeleteMapping("/delete/{id}")
+    public R delete(@PathVariable("id") long id){
         int i = bizSupplierService.deleteById(id);
         if (i==1){
             return  R.ok().setData("删除成功!");
@@ -58,8 +58,8 @@ public class BizSupplierController {
      * @param id
      * @return
      */
-    @GetMapping("/edit")
-    public R queryById(Long id){
+    @GetMapping("/edit/{id}")
+    public R queryById(@PathVariable("id") Long id){
         return R.ok().setData(bizSupplierService.queryById(id));
     }
 
@@ -69,8 +69,8 @@ public class BizSupplierController {
      * @param bizSupplier
      * @return
      */
-    @PutMapping("/update")
-    public R update(@RequestBody BizSupplier bizSupplier){
+    @PutMapping("/update/{id}")
+    public R update(@PathVariable("id") long id,BizSupplier bizSupplier){
         int i = bizSupplierService.update(bizSupplier);
         if (i==1){
             return  R.ok().setData("修改成功");

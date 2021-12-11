@@ -69,7 +69,7 @@ public class BizProductCategoryController {
      * @param pid
      * @return
      */
-    @GetMapping("/findProductCategoryLis")
+    @GetMapping("/findProductCategoryList")
     public R findSupplierList(int pageNum,int pageSize,long pid){
         Map map =new HashMap();
         map.put("pageNum",pageNum);
@@ -84,8 +84,8 @@ public class BizProductCategoryController {
      * @param id
      * @return
      */
-    @GetMapping("/edit")
-    public R queryById(long id){
+    @GetMapping("/edit/{id}")
+    public R queryById(@PathVariable("id") long id){
         return R.ok().setData(bizProductCategoryService.queryById(id));
 
     }
@@ -95,8 +95,8 @@ public class BizProductCategoryController {
      * @param bizProductCategory
      * @return
      */
-    @PutMapping("/update")
-    public R update(@RequestBody BizProductCategory bizProductCategory){
+    @PutMapping("/update/{id}")
+    public R update(@PathVariable("id")long id, BizProductCategory bizProductCategory){
         int i = bizProductCategoryService.update(bizProductCategory);
         if (i==1){
             return R.ok().setData("修改成功！");
@@ -112,8 +112,8 @@ public class BizProductCategoryController {
      * @param id
      * @return
      */
-    @DeleteMapping("/delete")
-    public R delete(long id){
+    @DeleteMapping("/delete/{id}")
+    public R delete(@PathVariable("id") long id){
 //        long id  一级id
         //查询的pid等于一级id的个数
         List<BizProductCategory> byId = bizProductCategoryService.findById(id);
