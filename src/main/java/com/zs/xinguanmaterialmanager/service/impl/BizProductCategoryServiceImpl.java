@@ -67,7 +67,10 @@ public class BizProductCategoryServiceImpl implements BizProductCategoryService 
         PageHelper.startPage(pageNum,pageSize);
         long pid=(long) map.get("pid");
         List<BizProductCategory> byPid = bizProductCategoryMapper.findAllByPid(pid);
-
+        for (BizProductCategory bbb : byPid){
+            List<BizProductCategory> byPid1 = bizProductCategoryMapper.findAllByPid(bbb.getId());
+            bbb.setChildren(byPid1);
+        }
         PageInfo<BizProductCategory> pageInfo=new PageInfo<>(byPid);
 
         return pageInfo;

@@ -1,6 +1,5 @@
 package com.zs.xinguanmaterialmanager.entity;
 
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
@@ -12,37 +11,37 @@ import java.util.Date;
  * @author makejava
  * @since 2021-12-06 20:32:34
  */
-@ApiModel
+
 public class BizSupplier implements Serializable {
     private static final long serialVersionUID = -19229311616532787L;
 
-    @ApiModelProperty(name = "id", value = "物资编号")
+
     private Long id;
     /**
      * 供应商名称
      */
-    @ApiModelProperty(name = "name", value = "物资供应商名称")
+
     private String name;
     /**
      * 供应商地址
      */
-    @ApiModelProperty(name = "address", value = "物资供应商地址")
+
     private String address;
     /**
      * 供应商邮箱
      */
-    @ApiModelProperty(name = "email", value = "物资供应邮箱")
+
     private String email;
     /**
      * 供应商电话
      */
-    @ApiModelProperty(name = "phone", value = "物资供应商电话")
+
     private String phone;
 
-    @ApiModelProperty(name = "createTime", value = "物资收入时间")
+
     private Date createTime;
 
-    @ApiModelProperty(name = "modifiedTime", value = "物资修改时间")
+
     private Date modifiedTime;
     /**
      * 排序
