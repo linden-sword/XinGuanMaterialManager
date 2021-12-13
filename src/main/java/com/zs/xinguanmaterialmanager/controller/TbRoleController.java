@@ -21,7 +21,6 @@ import java.util.List;
  * @since 2021-12-06 20:32:43
  */
 @RestController
-@RequestMapping("/tbRole")
 public class TbRoleController {
 
     @Resource
@@ -157,7 +156,7 @@ public class TbRoleController {
      * @since 22:06 2021/12/7
      **/
     @GetMapping("/XinGuan/role/findRoleList")
-    public R findRoleList(int pageNum, int pageSize, @RequestBody TbRole tbRole) {
+    public R findRoleList(int pageNum, int pageSize, TbRole tbRole) {
         PageHelper.startPage(pageNum, pageSize);
         PageInfo<TbRole> pageInfo = new PageInfo<>(tbRoleService.queryAll(tbRole));
         return R.ok().setData(pageInfo);

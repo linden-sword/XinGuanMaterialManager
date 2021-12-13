@@ -183,7 +183,7 @@ public class TbUserController {
      * @since 15:46 2021/12/7
      **/
     @GetMapping("/XinGuan/user/findUserList")
-    public R findUserList(int pageNum, int pageSize, @RequestBody TbUser tbUser) {
+    public R findUserList(int pageNum, int pageSize, TbUser tbUser) {
         //设置分页规则
         PageHelper.startPage(pageNum, pageSize);
         PageInfo<TbUser> pageInfo = new PageInfo<>(tbUserService.findUserList(tbUser));
