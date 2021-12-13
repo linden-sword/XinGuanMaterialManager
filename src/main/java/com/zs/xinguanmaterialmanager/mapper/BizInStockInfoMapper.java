@@ -28,7 +28,7 @@ public interface BizInStockInfoMapper {
      * @param inNum
      * @return
      */
-    BizInStockInfo findByInNum(String inNum);
+    List<BizInStockInfo> findByInNum(String inNum);
 
 
 

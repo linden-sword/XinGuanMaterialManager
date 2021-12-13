@@ -38,7 +38,7 @@ public interface BizProductMapper {
      * @param pNum
      * @return 实例对象
      */
-    List<BizProduct> queryBypNum(String pNum);
+    BizProduct queryBypNum(String pNum);
 
 
 

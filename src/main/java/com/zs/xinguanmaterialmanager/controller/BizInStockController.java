@@ -79,13 +79,13 @@ public class BizInStockController {
 
         return R.ok().setData(inStockService.update(bizInStock));
     }
-
     /**
      * 移入回收站
      */
-    @PutMapping("/remove")
-    public R remove(BizInStock bizInStock) {
-        return R.ok().setData(inStockService.remove(bizInStock));
+    @PutMapping("/remove/{id}")
+    public R remove(@PathVariable("id") long id) {
+        Integer remove = inStockService.remove(id);
+        return R.ok().setData(remove);
     }
 
 
@@ -97,13 +97,13 @@ public class BizInStockController {
      * @return
      */
     @GetMapping("/detail/{id}")
-    public R detail(@PathVariable("id") int id ,int pageNum,int pageSize){
+    public R detail(@PathVariable("id") long id,int pageNum,int pageSize){
         PageHelper.startPage(pageNum, pageSize);
         PageInfo<BizProduct> bizProductPageInfo = inStockService.detail2(id, pageNum, pageSize);
         BizSupplier bizSupplier = inStockService.detail1(id);
         ArrayList<Object> objects = new ArrayList<>();
-        objects.add(bizProductPageInfo);
         objects.add(bizSupplier);
+        objects.add(bizProductPageInfo);
         PageInfo pageInfo = new PageInfo(objects);
         return R.ok().setData(pageInfo);
     }

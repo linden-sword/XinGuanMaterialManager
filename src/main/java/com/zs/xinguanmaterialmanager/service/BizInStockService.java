@@ -51,20 +51,20 @@ public interface BizInStockService {
 
     /**
      * 移入回收站
-     * @param bizInStock
+     * @param id
      * @return
      */
-    Integer remove(BizInStock bizInStock);
+    Integer remove(long id);
 
     /**
      * 查询明细
      */
-    PageInfo<BizProduct> detail2(int id, int pageNum, int pageSize);
+    PageInfo<BizProduct> detail2(long id, int pageNum, int pageSize);
 
     /**
      * 查询明细头
      */
-    BizSupplier detail1(int id);
+    BizSupplier detail1(long id);
 
     /**
      * 通过inNum删除入库表信息

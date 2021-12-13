@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -87,26 +88,30 @@ public class BizInStockServiceImpl implements BizInStockService {
     /**
      * 移入回收站
      *
-     * @param bizInStock
+     * @param id
      * @return
      */
     @Override
-    public Integer remove(BizInStock bizInStock) {
+    public Integer remove(long id) {
+        BizInStock bizInStock = bizInStockMapper.queryById(id);
         bizInStock.setStatus(1);
         return bizInStockMapper.update(bizInStock);
     }
 
 
     /**
-     * 查询明细
+     * 查询 明细
      */
-    public PageInfo<BizProduct> detail2(int id, int pageNum, int pageSize) {
+    public PageInfo<BizProduct> detail2(long id, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         BizInStock inStock = bizInStockMapper.queryById(id);
 
-        BizInStockInfo byInNum = inStockInfoMapper.findByInNum(inStock.getInNum());
-
-        List<BizProduct> bizProducts = productMapper.queryBypNum(byInNum.getPNum());
+        List<BizInStockInfo> byInNum = inStockInfoMapper.findByInNum(inStock.getInNum());
+        List<BizProduct> bizProducts =new ArrayList<>();
+        for (BizInStockInfo bizInStockInfo : byInNum){
+            BizProduct bizProduct = productMapper.queryBypNum(bizInStockInfo.getPNum());
+            bizProducts.add(bizProduct);
+        }
 
         PageInfo<BizProduct> pageInfo = new PageInfo<>(bizProducts);
         return pageInfo;
@@ -116,7 +121,7 @@ public class BizInStockServiceImpl implements BizInStockService {
      * 查询明细头
      */
     @Override
-    public BizSupplier detail1(int id) {
+    public BizSupplier detail1(long id) {
         BizInStock bizInStock = bizInStockMapper.queryById(id);
         BizSupplier bizSupplier = supplierMapper.queryById(bizInStock.getSupplierId());
         return bizSupplier;
