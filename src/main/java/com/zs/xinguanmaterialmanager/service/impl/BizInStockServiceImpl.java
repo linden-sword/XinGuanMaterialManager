@@ -14,7 +14,6 @@ import com.zs.xinguanmaterialmanager.service.BizInStockService;
 import com.zs.xinguanmaterialmanager.vo.InStockVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -65,11 +64,12 @@ public class BizInStockServiceImpl implements BizInStockService {
      * 修改数据
      * 从回收站中恢复数据
      *
-     * @param bizInStock 实例对象
+     * @param
      * @return 实例对象
      */
     @Override
-    public int update(BizInStock bizInStock) {
+    public int update(long id) {
+        BizInStock bizInStock = bizInStockMapper.queryById(id);
         bizInStock.setStatus(0);
         return bizInStockMapper.update(bizInStock);
     }
@@ -130,17 +130,12 @@ public class BizInStockServiceImpl implements BizInStockService {
     /**
      * 通过inNum删除入库表信息
      *
-     * @param inNum
+     * @param
      * @return
      */
     @Override
-    @Transactional
-    public Integer delete(String inNum) {
-
-        bizInStockMapper.deleteInStock(inNum);
-        inStockInfoMapper.deleteInfo(inNum);
-
-        return 1;
+    public Integer delete(long id) {
+        return bizInStockMapper.deleteInStock(id);
     }
 
     /**
@@ -162,11 +157,12 @@ public class BizInStockServiceImpl implements BizInStockService {
     /**
      * 入库审核
      *
-     * @param bizInStock
+     * @param
      * @return
      */
     @Override
-    public Integer publish(BizInStock bizInStock) {
+    public Integer publish(long id) {
+        BizInStock bizInStock = bizInStockMapper.queryById(id);
         bizInStock.setStatus(2);
         return bizInStockMapper.update(bizInStock);
     }

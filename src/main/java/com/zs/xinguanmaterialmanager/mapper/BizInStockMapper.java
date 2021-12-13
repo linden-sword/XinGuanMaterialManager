@@ -1,7 +1,6 @@
 package com.zs.xinguanmaterialmanager.mapper;
 
 import com.zs.xinguanmaterialmanager.entity.BizInStock;
-import com.zs.xinguanmaterialmanager.vo.InStockInfoProVO;
 import com.zs.xinguanmaterialmanager.vo.InStockVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -74,7 +73,7 @@ public interface BizInStockMapper {
     /**
      * 通过inNUM删除入库表信息
      */
-    int deleteInStock(String inNum);
+    int deleteInStock(long id);
 
     /**
      * 多条件模糊查询信息
