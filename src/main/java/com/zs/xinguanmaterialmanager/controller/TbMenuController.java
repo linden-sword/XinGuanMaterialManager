@@ -103,7 +103,7 @@ public class TbMenuController {
      * @author Zanson
      * @since 10:48 2021/12/9
      **/
-    @PostMapping("/XinGuan/menu/excel")
+    @GetMapping("/XinGuan/menu/excel")
     public void excelDownload(HttpServletResponse response) throws IOException {
         //表头数据
         String[] header = {"编号", "父级ID", "菜单名称", "菜单URL", "菜单图标", "是否展开", "菜单类型", "排序", "创建时间", "修改时间", "是否可用", "权限编码"};

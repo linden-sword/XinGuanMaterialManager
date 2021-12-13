@@ -100,7 +100,7 @@ public class BizInStockServiceImpl implements BizInStockService {
 
 
     /**
-     * 查询 明细
+     * 查询明细
      */
     public PageInfo<BizProduct> detail2(long id, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);

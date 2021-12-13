@@ -16,6 +16,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.subject.Subject;
 import org.springframework.web.bind.annotation.*;
 
@@ -99,7 +100,7 @@ public class TbUserController {
      * @author Zanson
      * @since 10:48 2021/12/9
      **/
-    @PostMapping("/XinGuan/user/excel")
+    @GetMapping("/XinGuan/user/excel")
     public void excelDownload(HttpServletResponse response) throws IOException {
         //表头数据
         String[] header = {"编号", "用户名", "昵称", "邮箱", "电话号码", "创建时间", "修改时间", "性别", "密码盐值", "用户类型", "用户密码", "出生日期", "头像Url"};
@@ -163,7 +164,7 @@ public class TbUserController {
     @GetMapping("/XinGuan/user/findMenu")
     public R findMenu(HttpServletRequest request) {
         //没有参数，需要通过Token获取
-        String jwtToken = request.getHeader("token");
+        String jwtToken = request.getHeader("Authorization");
         DecodedJWT decodedJWT = JWTUtil.parseData(jwtToken);
         //从JWT中解析到username
         String username = decodedJWT.getClaim("username").asString();
@@ -201,7 +202,7 @@ public class TbUserController {
     @GetMapping("/XinGuan/user/info")
     public R userLoginInfo(HttpServletRequest request) {
         //没有参数，需要通过Token获取
-        String jwtToken = request.getHeader("token");
+        String jwtToken = request.getHeader("Authorization");
         DecodedJWT decodedJWT = JWTUtil.parseData(jwtToken);
         //从JWT中解析到username
         String username = decodedJWT.getClaim("username").asString();
@@ -211,6 +212,8 @@ public class TbUserController {
         TbDepartment department = departmentService.edit(tbUser.getDepartmentId());
         //角色
         List<TbRole> tbRoleList = tbUserService.findUserRoles(tbUser.getId());
+//        boolean b1 = SecurityUtils.getSubject().isPermitted("控制面板");   // 这个用户是否有某权限
+//        System.out.println("///=== 用户是否有某权限: " + b1);
         Map<String, Object> map = new HashMap<>();
         map.put("avatar", tbUser.getAvatar());
         map.put("username", tbUser.getUsername());

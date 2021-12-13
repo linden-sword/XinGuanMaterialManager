@@ -2,6 +2,7 @@ package com.zs.xinguanmaterialmanager.mapper;
 
 import com.zs.xinguanmaterialmanager.entity.BizOutStock;
 import com.zs.xinguanmaterialmanager.entity.BizProduct;
+import com.zs.xinguanmaterialmanager.vo.InStockInfoProVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -182,6 +183,16 @@ public interface BizProductMapper {
      * @Param [bizOutStock]
      */
     List<BizProduct> detailOutStock(BizOutStock bizOutStock);
+
+    /**
+     *
+     *查询明细
+     * @author Zanson
+     * @since 18:32 2021/12/11
+     * @param
+     * @return
+     **/
+    List<InStockInfoProVO> finddetail(String inNum);
 
 }
 

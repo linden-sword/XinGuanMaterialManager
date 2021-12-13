@@ -157,5 +157,8 @@
         where in_num = #{inNum}
     </delete>
     <!--fan-->
+
+
+
 </mapper>
 

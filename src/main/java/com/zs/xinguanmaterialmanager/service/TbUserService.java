@@ -97,4 +97,26 @@ public interface TbUserService {
      **/
     List<TbRole> findUserRoles(Long id);
 
+
+    /**
+     * 通过用户名查询角色名称列表
+     *
+     * @author Zanson
+     * @since 9:36 2021/12/13
+     * @param username
+     * @return java.util.List<java.lang.String>
+    **/
+    List<String> findRoleNameByUsername(String username);
+
+
+    /**
+     * 通过用户名查询权限名称
+     *
+     * @author Zanson
+     * @since 9:37 2021/12/13
+     * @param username
+     * @return java.util.List<java.lang.String>
+    **/
+    List<String> findPermissionNameByUsername(String username);
+
 }
