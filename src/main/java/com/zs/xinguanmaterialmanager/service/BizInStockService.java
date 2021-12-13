@@ -37,7 +37,7 @@ public interface BizInStockService {
      * @param bizInStock 实例对象
      * @return 实例对象
      */
-    int update(BizInStock bizInStock);
+    int update(long id);
 
     /**
      * 通过主键删除数据
@@ -68,10 +68,10 @@ public interface BizInStockService {
 
     /**
      * 通过inNum删除入库表信息
-     * @param inNum
+     * @param
      * @return
      */
-    Integer delete(String inNum);
+    Integer delete(long id);
 
 
     /**
@@ -88,6 +88,6 @@ public interface BizInStockService {
      * @param bizInStock
      * @return
      */
-    Integer publish(BizInStock bizInStock);
+    Integer publish(long id);
 //fan
 }

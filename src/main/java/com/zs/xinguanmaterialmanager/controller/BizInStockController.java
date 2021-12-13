@@ -74,10 +74,9 @@ public class BizInStockController {
      * @param bizInStock
      * @return
      */
-    @PutMapping("/back")
-    public R back(BizInStock bizInStock) {
-
-        return R.ok().setData(inStockService.update(bizInStock));
+    @PutMapping("/back/{id}")
+    public R back(@PathVariable("id") long id) {
+        return R.ok().setData(inStockService.update(id));
     }
     /**
      * 移入回收站
@@ -133,13 +132,12 @@ public class BizInStockController {
     /**
      * 删除
      *
-     * @param inNum
+     * @param
      * @return
      */
-    @RequestMapping("/delete")
-    public R delete(String inNum) {
-        inStockService.delete(inNum);
-        return R.ok();
+    @RequestMapping("/delete/{id}")
+    public R delete( @PathVariable("id") long id) {
+        return R.ok().setData(inStockService.delete(id));
     }
 
     @RequestMapping("/findInStockList")
@@ -148,9 +146,9 @@ public class BizInStockController {
         return R.ok().setData(inStockList);
     }
 
-    @RequestMapping("/publish")
-    public R publish(BizInStock bizInStock) {
-        return R.ok().setData(inStockService.publish(bizInStock));
+    @RequestMapping("/publish/{id}")
+    public R publish(@PathVariable("id") long id) {
+        return R.ok().setData(inStockService.publish(id));
     }
 //fan
 }

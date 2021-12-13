@@ -154,7 +154,7 @@
     <delete id="deleteInStock">
         delete
         from biz_in_stock
-        where in_num = #{inNum}
+        where id = #{id}
     </delete>
     <!--fan-->
 
