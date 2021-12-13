@@ -76,7 +76,7 @@ public interface BizProductCategoryService {
      */
     PageInfo<BizProductCategory> findById1(int pageNum,int pageSize);
 
-    List<BizProductCategory> listWithTree();
+    PageInfo listWithTree(int pageNum, int pageSize);
     //fan
     List<BizProductCategory>  getChildrens(BizProductCategory root,List<BizProductCategory> all);
 }

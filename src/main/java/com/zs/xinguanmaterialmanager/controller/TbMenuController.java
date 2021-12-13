@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -34,6 +35,7 @@ public class TbMenuController {
      **/
     @PostMapping("/XinGuan/menu/add")
     public R addMenu(@RequestBody TbMenu tbMenu) {
+        tbMenu.setCreateTime(new Date());
         if (tbMenuService.insert(tbMenu) > 0) {
             return R.ok().setData("添加成功");
         }

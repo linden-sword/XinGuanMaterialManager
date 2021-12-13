@@ -24,6 +24,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,6 +53,7 @@ public class TbUserController {
      **/
     @PostMapping("/XinGuan/user/add")
     public R addUser(@RequestBody TbUser tbUser) {
+        tbUser.setCreateTime(new Date());
         if (tbUserService.insert(tbUser) > 0) {
             return R.ok().setData("添加用户成功");
         }

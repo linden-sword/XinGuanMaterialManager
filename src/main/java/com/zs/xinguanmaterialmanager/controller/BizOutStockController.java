@@ -65,9 +65,8 @@ public class BizOutStockController {
      */
     @GetMapping("/detail/{id}")
     public R detailOutStock(@PathVariable Long id,
-                            @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
-                            @RequestParam(value = "pageSize") Integer pageSize) {
-        DetailOutStock detail = bizOutStockService.detailOutStock(id, pageNum, pageSize);
+                            @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
+        DetailOutStock detail = bizOutStockService.detailOutStock(id, pageNum, 10);
         return R.ok().setData(detail);
     }
 

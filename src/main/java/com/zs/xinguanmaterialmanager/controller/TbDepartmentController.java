@@ -60,7 +60,7 @@ public class TbDepartmentController {
 
 
     // 导出excel表格？
-    @PostMapping("/excel")
+    @GetMapping("/excel")
     public void excel(HttpServletResponse response) throws IOException {
         //表头数据
         String[] header = {"编号", "办公电话", "部门名", "创建时间", "修改时间", "地址"};
@@ -109,7 +109,7 @@ public class TbDepartmentController {
 
 
     @PostMapping("/add")
-    public R add(TbDepartment tbDepartment) {
+    public R add(@RequestBody TbDepartment tbDepartment) {
         tbDepartment.setCreateTime(new Date());
         tbDepartment.setModifiedTime(new Date());
         int i = tbDepartmentService.add(tbDepartment);
@@ -122,12 +122,12 @@ public class TbDepartmentController {
 
     @PutMapping("/update/{id}")
     public R update(@PathVariable("id") long id, TbDepartment tbDepartment) {
-        System.out.println(1);
         tbDepartment.setModifiedTime(new Date());
         System.out.println(tbDepartment.toString());
-        int i = tbDepartmentService.update(id, tbDepartment);
+        int i = tbDepartmentService.update(id,tbDepartment);
+        TbDepartment edit = tbDepartmentService.edit(id);
         if (i > 0) {
-            return R.ok().setData(tbDepartment);
+            return R.ok().setData(edit);
         } else {
             return R.fail().setData(null);
         }

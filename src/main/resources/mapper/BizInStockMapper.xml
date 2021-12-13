@@ -34,8 +34,7 @@
 
     <select id="findInStockList" parameterType="com.zs.xinguanmaterialmanager.vo.InStockVO"
             resultType="com.zs.xinguanmaterialmanager.vo.InStockVO">
-        select bis.id,bis.in_num,bis.type,bis.operator,bis.create_time,bis.modified,bis.product_number,
-        bis.supplier_id,bis.remark,bis.status,bs.phone
+        select *
         from biz_in_stock bis,biz_supplier bs
         <where>
             <if test="status !=null and status !=''">
@@ -157,7 +156,6 @@
         where id = #{id}
     </delete>
     <!--fan-->
-
 
 
 </mapper>

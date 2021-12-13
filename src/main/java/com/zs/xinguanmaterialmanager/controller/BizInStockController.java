@@ -92,13 +92,12 @@ public class BizInStockController {
      * 查询明细
      * @param id
      * @param pageNum
-     * @param pageSize
      * @return
      */
     @GetMapping("/detail/{id}")
-    public R detail(@PathVariable("id") long id,int pageNum,int pageSize){
-        PageHelper.startPage(pageNum, pageSize);
-        PageInfo<BizProduct> bizProductPageInfo = inStockService.detail2(id, pageNum, pageSize);
+    public R detail(@PathVariable("id") long id,int pageNum){
+        PageHelper.startPage(pageNum, 10);
+        PageInfo<BizProduct> bizProductPageInfo = inStockService.detail2(id, pageNum, 10);
         BizSupplier bizSupplier = inStockService.detail1(id);
         ArrayList<Object> objects = new ArrayList<>();
         objects.add(bizSupplier);

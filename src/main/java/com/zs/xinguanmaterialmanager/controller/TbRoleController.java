@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -36,6 +37,7 @@ public class TbRoleController {
      **/
     @PostMapping("/XinGuan/role/add")
     public R addRole(@RequestBody TbRole tbRole) {
+        tbRole.setCreateTime(new Date());
         if (tbRoleService.insert(tbRole) > 0) {
             return R.ok().setData("添加角色成功");
         }
@@ -101,7 +103,7 @@ public class TbRoleController {
      * @author Zanson
      * @since 10:48 2021/12/9
      **/
-    @PostMapping("/XinGuan/role/excel")
+    @GetMapping("/XinGuan/role/excel")
     public void excelDownload(HttpServletResponse response) throws IOException {
         //表头数据
         String[] header = {"编号", "角色名称", "备注信息", "创建时间", "修改时间", "禁用状态"};

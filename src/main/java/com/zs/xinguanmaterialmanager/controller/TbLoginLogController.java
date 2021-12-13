@@ -39,7 +39,7 @@ public class TbLoginLogController {
      */
     @GetMapping("/findLoginLogList")
     public R queryAll(TbLoginLog tbLoginLog, int pageSize, int pageNum) {
-        PageInfo pageInfo = tbLoginLogService.queryAll(tbLoginLog, pageSize, pageNum);
+        PageInfo pageInfo = tbLoginLogService.queryAll(tbLoginLog, pageNum, pageSize);
         if (!pageInfo.getList().isEmpty()) {
             return R.ok().setData(pageInfo);
         } else {

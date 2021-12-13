@@ -37,15 +37,16 @@ public class BizProductCategoryServiceImpl implements BizProductCategoryService 
 
     /**
      * 查询所有父级
+     *
      * @return
      */
     @Override
-    public PageInfo<BizProductCategory> findAll(int pageNum,int pageSize) {
-        PageHelper.startPage(pageNum,pageSize);
+    public PageInfo<BizProductCategory> findAll(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
 
-        List<BizProductCategory> bizProductCategoryMapperAll = bizProductCategoryMapper.findAll(pageNum,pageSize);
+        List<BizProductCategory> bizProductCategoryMapperAll = bizProductCategoryMapper.findAll(pageNum, pageSize);
 
-        PageInfo<BizProductCategory> pageInfo=new PageInfo<>(bizProductCategoryMapperAll);
+        PageInfo<BizProductCategory> pageInfo = new PageInfo<>(bizProductCategoryMapperAll);
         return pageInfo;
     }
 
@@ -56,22 +57,23 @@ public class BizProductCategoryServiceImpl implements BizProductCategoryService 
 
     /**
      * 查询所有子级
+     *
      * @param
      * @return
      */
     @Override
-    public PageInfo<BizProductCategory> findAllByPid(Map<String,Object> map) {
-        int pageNum=(int) map.get("pageNum");
-        int pageSize=(int) map.get("pageSize");
+    public PageInfo<BizProductCategory> findAllByPid(Map<String, Object> map) {
+        int pageNum = (int) map.get("pageNum");
+        int pageSize = (int) map.get("pageSize");
 
-        PageHelper.startPage(pageNum,pageSize);
-        long pid=(long) map.get("pid");
+        PageHelper.startPage(pageNum, pageSize);
+        long pid = (long) map.get("pid");
         List<BizProductCategory> byPid = bizProductCategoryMapper.findAllByPid(pid);
-        for (BizProductCategory bbb : byPid){
+        for (BizProductCategory bbb : byPid) {
             List<BizProductCategory> byPid1 = bizProductCategoryMapper.findAllByPid(bbb.getId());
             bbb.setChildren(byPid1);
         }
-        PageInfo<BizProductCategory> pageInfo=new PageInfo<>(byPid);
+        PageInfo<BizProductCategory> pageInfo = new PageInfo<>(byPid);
         return pageInfo;
     }
 
@@ -89,11 +91,11 @@ public class BizProductCategoryServiceImpl implements BizProductCategoryService 
 
     @Override
     public PageInfo<BizProductCategory> list(int pageNum, int pageSize) {
-        PageHelper.startPage(pageNum,pageSize);
+        PageHelper.startPage(pageNum, pageSize);
 
-        List<BizProductCategory> bizProductCategoryMapperAll = bizProductCategoryMapper.list(pageNum,pageSize);
+        List<BizProductCategory> bizProductCategoryMapperAll = bizProductCategoryMapper.list(pageNum, pageSize);
 
-        PageInfo<BizProductCategory> pageInfo=new PageInfo<>(bizProductCategoryMapperAll);
+        PageInfo<BizProductCategory> pageInfo = new PageInfo<>(bizProductCategoryMapperAll);
         return pageInfo;
     }
 
@@ -132,34 +134,36 @@ public class BizProductCategoryServiceImpl implements BizProductCategoryService 
 
     /**
      * 父类树
-     *
      */
 
-    public  List<BizProductCategory> findById1(){
+    public List<BizProductCategory> findById1() {
 
-        return  bizProductCategoryMapper.findAll1();
+        return bizProductCategoryMapper.findAll1();
     }
 
     @Override
-    public List<BizProductCategory> listWithTree() {
-        List<BizProductCategory> biz= bizProductCategoryMapper.listWithTree();
+    public PageInfo listWithTree(int pageNum, int pageSize) {
+        List<BizProductCategory> biz = bizProductCategoryMapper.listWithTree();
         List<BizProductCategory> collect = biz.stream().filter(bizProductCategory ->
                 bizProductCategory.getPid() == 0
-        ).map((menu)->{
-            menu.setChildren(getChildrens(menu,biz));
+        ).map((menu) -> {
+            menu.setChildren(getChildrens(menu, biz));
             return menu;
         }).collect(Collectors.toList());
-
-        return collect;
+        //设置分页规则
+        System.out.println("////==== pageNum & pageSize: "+pageNum+" , "+pageSize);
+        PageHelper.startPage(pageNum, pageSize);
+        PageInfo<BizProductCategory> pageInfo = new PageInfo<>(collect);
+        return pageInfo;
     }
 
     //递归查找所有菜单的子菜单
     @Override
-    public List<BizProductCategory>  getChildrens(BizProductCategory root,List<BizProductCategory> all){
-        List<BizProductCategory> childern = all.stream().filter(bizProductCategory ->{
-          return bizProductCategory.getPid() == root.getId();
+    public List<BizProductCategory> getChildrens(BizProductCategory root, List<BizProductCategory> all) {
+        List<BizProductCategory> childern = all.stream().filter(bizProductCategory -> {
+            return bizProductCategory.getPid() == root.getId();
         }).map(bizProductCategory -> {
-            bizProductCategory.setChildren(getChildrens(bizProductCategory,all));
+            bizProductCategory.setChildren(getChildrens(bizProductCategory, all));
             return bizProductCategory;
         }).collect(Collectors.toList());
         return childern;
