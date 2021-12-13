@@ -73,14 +73,9 @@ public class BizSupplierServiceImpl implements BizSupplierService {
      * @return
      */
     @Override
-    public PageInfo<BizSupplier> findAll(int pageNum,int pageSize) {
-        PageHelper.startPage(pageNum,pageSize);
+    public List<BizSupplier> findAll() {
 
-        List<BizSupplier> bizSuppliers=  bizSupplierMapper.findAll();
-
-        PageInfo<BizSupplier> pageInfo=new PageInfo<>(bizSuppliers);
-
-        return pageInfo;
+        return bizSupplierMapper.findAll();
     }
 
     /**

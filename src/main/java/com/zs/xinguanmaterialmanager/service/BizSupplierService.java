@@ -3,6 +3,7 @@ package com.zs.xinguanmaterialmanager.service;
 import com.github.pagehelper.PageInfo;
 import com.zs.xinguanmaterialmanager.entity.BizSupplier;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -49,7 +50,7 @@ public interface BizSupplierService {
      * 所有来源
      * @return
      */
-     PageInfo<BizSupplier> findAll(int pageNum,int pageSize);
+     List<BizSupplier> findAll();
 
     /**
      * 根据来源名模糊查询

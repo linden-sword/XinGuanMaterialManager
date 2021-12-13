@@ -43,17 +43,17 @@ public class BizProductCategoryServiceImpl implements BizProductCategoryService 
     public PageInfo<BizProductCategory> findAll(int pageNum,int pageSize) {
         PageHelper.startPage(pageNum,pageSize);
 
-        List<BizProductCategory> bizProductCategoryMapperAll = bizProductCategoryMapper.findAll();
+        List<BizProductCategory> bizProductCategoryMapperAll = bizProductCategoryMapper.findAll(pageNum,pageSize);
 
         PageInfo<BizProductCategory> pageInfo=new PageInfo<>(bizProductCategoryMapperAll);
-
         return pageInfo;
     }
 
     @Override
     public List<BizProductCategory> findAll() {
-        return bizProductCategoryMapper.findAll();
+        return null;
     }
+
     /**
      * 查询所有子级
      * @param
@@ -72,7 +72,6 @@ public class BizProductCategoryServiceImpl implements BizProductCategoryService 
             bbb.setChildren(byPid1);
         }
         PageInfo<BizProductCategory> pageInfo=new PageInfo<>(byPid);
-
         return pageInfo;
     }
 
@@ -86,6 +85,16 @@ public class BizProductCategoryServiceImpl implements BizProductCategoryService 
     public int insert(BizProductCategory bizProductCategory) {
         return bizProductCategoryMapper.insert(bizProductCategory);
 
+    }
+
+    @Override
+    public PageInfo<BizProductCategory> list(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
+
+        List<BizProductCategory> bizProductCategoryMapperAll = bizProductCategoryMapper.list(pageNum,pageSize);
+
+        PageInfo<BizProductCategory> pageInfo=new PageInfo<>(bizProductCategoryMapperAll);
+        return pageInfo;
     }
 
     /**
@@ -115,12 +124,20 @@ public class BizProductCategoryServiceImpl implements BizProductCategoryService 
         return bizProductCategoryMapper.findById(id);
     }
 
+    @Override
+    public PageInfo<BizProductCategory> findById1(int pageNum, int pageSize) {
+        return null;
+    }
+
 
     /**
      * 父类树
+     *
      */
+
     public  List<BizProductCategory> findById1(){
-        return  bizProductCategoryMapper.findAll();
+
+        return  bizProductCategoryMapper.findAll1();
     }
 
     @Override
@@ -132,6 +149,7 @@ public class BizProductCategoryServiceImpl implements BizProductCategoryService 
             menu.setChildren(getChildrens(menu,biz));
             return menu;
         }).collect(Collectors.toList());
+
         return collect;
     }
 

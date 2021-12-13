@@ -27,7 +27,7 @@ public interface BizProductCategoryMapper {
      * 查询所有
      * @return
      */
-    List<BizProductCategory> findAll();
+    List<BizProductCategory> findAll(int pageNum,int pageSize );
     List<BizProductCategory> findAll1();
 
     /**
@@ -36,6 +36,10 @@ public interface BizProductCategoryMapper {
      * @return
      */
     List<BizProductCategory> findAllByPid(Long pid);
+
+
+
+    List<BizProductCategory> list(int pageNum,int pageSize);
     /**
      * 新增数据
      *
@@ -87,6 +91,7 @@ public interface BizProductCategoryMapper {
     List<BizProductCategory> selectList();
 
     List<BizProductCategory> listWithTree();
+
 
 
     //fan

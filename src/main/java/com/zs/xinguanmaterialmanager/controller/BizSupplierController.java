@@ -70,7 +70,7 @@ public class BizSupplierController {
      * @return
      */
     @PutMapping("/update/{id}")
-    public R update(@PathVariable("id") long id,BizSupplier bizSupplier){
+    public R update(@PathVariable("id") long id,@RequestBody BizSupplier bizSupplier){
         int i = bizSupplierService.update(bizSupplier);
         if (i==1){
             return  R.ok().setData("修改成功");
@@ -83,13 +83,12 @@ public class BizSupplierController {
 
     /**
      * 查询所有，并分页
-     * @param pageNum 分页页数
-     * @param pageSize 每页条数
+     * @param
      * @return
      */
     @GetMapping("/findAll")
-    public R findAll(int pageNum,int pageSize){
-        return R.ok().setData(bizSupplierService.findAll(pageNum,pageSize));
+    public R findAll(){
+        return R.ok().setData(bizSupplierService.findAll());
     }
 
     /**

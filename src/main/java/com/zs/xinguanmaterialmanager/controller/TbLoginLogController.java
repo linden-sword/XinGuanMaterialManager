@@ -1,19 +1,15 @@
 package com.zs.xinguanmaterialmanager.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.zs.xinguanmaterialmanager.entity.TbLog;
 import com.zs.xinguanmaterialmanager.entity.TbLoginLog;
 import com.zs.xinguanmaterialmanager.service.TbLoginLogService;
 import com.zs.xinguanmaterialmanager.util.IpUtil;
 import com.zs.xinguanmaterialmanager.util.R;
 import eu.bitwalker.useragentutils.UserAgent;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
