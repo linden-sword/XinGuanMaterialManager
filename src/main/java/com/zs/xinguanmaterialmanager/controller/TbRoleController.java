@@ -36,7 +36,7 @@ public class TbRoleController {
      * @since 19:44 2021/12/7
      **/
     @PostMapping("/XinGuan/role/add")
-    public R addRole(TbRole tbRole) {
+    public R addRole(@RequestBody TbRole tbRole) {
         if (tbRoleService.insert(tbRole) > 0) {
             return R.ok().setData("添加角色成功");
         }
@@ -157,7 +157,7 @@ public class TbRoleController {
      * @since 22:06 2021/12/7
      **/
     @GetMapping("/XinGuan/role/findRoleList")
-    public R findRoleList(int pageNum, int pageSize, TbRole tbRole) {
+    public R findRoleList(int pageNum, int pageSize, @RequestBody TbRole tbRole) {
         PageHelper.startPage(pageNum, pageSize);
         PageInfo<TbRole> pageInfo = new PageInfo<>(tbRoleService.queryAll(tbRole));
         return R.ok().setData(pageInfo);
@@ -188,7 +188,7 @@ public class TbRoleController {
      * @since 22:09 2021/12/7
      **/
     @PutMapping("/XinGuan/role/update/{id}")
-    public R updateRole(@PathVariable("id") Long id, TbRole tbRole) {
+    public R updateRole(@PathVariable("id") Long id, @RequestBody TbRole tbRole) {
         if (tbRoleService.update(tbRole) > 0) {
             return R.ok().setData("更新角色成功");
         }

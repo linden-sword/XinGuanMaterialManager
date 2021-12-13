@@ -33,7 +33,7 @@ public class TbMenuController {
      * @since 11:30 2021/12/7
      **/
     @PostMapping("/XinGuan/menu/add")
-    public R addMenu(TbMenu tbMenu) {
+    public R addMenu(@RequestBody TbMenu tbMenu) {
         if (tbMenuService.insert(tbMenu) > 0) {
             return R.ok().setData("添加成功");
         }
@@ -223,7 +223,7 @@ public class TbMenuController {
      * @since 19:14 2021/12/7
      **/
     @PutMapping("/XinGuan/menu/update")
-    public R updateById(TbMenu tbMenu) {
+    public R updateById(@RequestBody TbMenu tbMenu) {
         if (tbMenuService.update(tbMenu) > 0) {
             return R.ok().setData("更新成功");
         }

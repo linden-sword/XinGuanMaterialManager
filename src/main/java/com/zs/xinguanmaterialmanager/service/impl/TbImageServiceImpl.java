@@ -44,6 +44,7 @@ public class TbImageServiceImpl implements TbImageService {
         InputStream inputStream = file.getInputStream();
         //获取上传文件的名称
         String fileName = file.getOriginalFilename();
+        System.out.println("////======= OSS fileName ===" +fileName);
         //1. 在文件名称里面添加随机唯一值，让每个文件都不一样
         //2. 把文件按照日期进行分类
         String uuid = UUID.randomUUID().toString().replaceAll("-", "");
