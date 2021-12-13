@@ -97,12 +97,12 @@ public class BizInStockController {
      * @return
      */
     @GetMapping("/detail/{id}")
-    public R detail(@PathVariable int id ,int pageNum,int pageSize){
+    public R detail(@PathVariable("id") int id ,int pageNum,int pageSize){
         PageHelper.startPage(pageNum, pageSize);
         PageInfo<BizProduct> bizProductPageInfo = inStockService.detail2(id, pageNum, pageSize);
         BizSupplier bizSupplier = inStockService.detail1(id);
         ArrayList<Object> objects = new ArrayList<>();
-        objects.add(bizSupplier);
+        objects.add(bizProductPageInfo);
         objects.add(bizSupplier);
         PageInfo pageInfo = new PageInfo(objects);
         return R.ok().setData(pageInfo);

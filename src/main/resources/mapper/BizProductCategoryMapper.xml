@@ -75,8 +75,16 @@
         select *
         from biz_product_category
     </select>
-
-
+    <select id="list" resultType="com.zs.xinguanmaterialmanager.entity.BizProductCategory">
+        select id,
+               name,
+               remark,
+               sort,
+               create_time,
+               modified_time,
+               pid
+        from biz_product_category
+    </select>
 
 
     <!--新增所有列-->
@@ -111,7 +119,7 @@
     </insert>
 
     <!--通过主键修改数据-->
-    <update id="update">
+    <update id="update"  parameterType="com.zs.xinguanmaterialmanager.entity.BizProductCategory">
         update biz_product_category
         <set>
             <if test="name != null and name != ''">

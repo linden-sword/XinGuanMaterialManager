@@ -1,23 +1,19 @@
 package com.zs.xinguanmaterialmanager.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.zs.xinguanmaterialmanager.entity.TbLog;
 import com.zs.xinguanmaterialmanager.entity.TbLoginLog;
 import com.zs.xinguanmaterialmanager.service.TbLoginLogService;
 import com.zs.xinguanmaterialmanager.util.IpUtil;
 import com.zs.xinguanmaterialmanager.util.R;
 import eu.bitwalker.useragentutils.UserAgent;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
+//import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 
 /**
  * 登录日志表(TbLoginLog)表控制层
@@ -63,13 +59,13 @@ public class TbLoginLogController {
         tbLoginLog.setLoginTime(new Date());
         UserAgent userAgent = UserAgent.parseUserAgentString(request.getHeader("user-agent"));
         String clientType = userAgent.getOperatingSystem().getDeviceType().toString();
-        LOGGER.info("clientType = " + clientType);   //客户端类型  手机、电脑、平板
+//        LOGGER.info("clientType = " + clientType);   //客户端类型  手机、电脑、平板
         String location = userAgent.getOperatingSystem().getName();
-        LOGGER.info("location = " + location);    //操作系统类型
+//        LOGGER.info("location = " + location);    //操作系统类型
         String ip = IpUtil.getIpAddr(request);
-        LOGGER.info("ip = " + ip);    //请求ip
+//        LOGGER.info("ip = " + ip);    //请求ip
         String browser = userAgent.getBrowser().toString();
-        LOGGER.info("browser = " + browser);
+//        LOGGER.info("browser = " + browser);
         tbLoginLog.setLocation(location);
         tbLoginLog.setIp(IpUtil.getIpAddr(request));
         tbLoginLog.setUserSystem(clientType);

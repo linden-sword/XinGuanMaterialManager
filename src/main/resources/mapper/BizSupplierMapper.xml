@@ -6,6 +6,7 @@
     <!--查询单个-->
     <select id="queryById" resultType="com.zs.xinguanmaterialmanager.entity.BizSupplier" parameterType="long">
         select name,
+               id,
                address,
                email,
                phone,
@@ -91,7 +92,7 @@
     </insert>
 
     <!--通过主键修改数据-->
-    <update id="update">
+    <update id="update" parameterType="com.zs.xinguanmaterialmanager.entity.BizSupplier">
         update biz_supplier
         <set>
             <if test="name != null and name != ''">

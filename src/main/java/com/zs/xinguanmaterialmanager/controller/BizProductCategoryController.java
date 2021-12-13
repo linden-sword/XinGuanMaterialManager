@@ -6,9 +6,7 @@ import com.zs.xinguanmaterialmanager.util.R;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * (BizProductCategory)控制层
@@ -66,18 +64,21 @@ public class BizProductCategoryController {
      * 查询所有子类
      * @param pageNum
      * @param pageSize
-     * @param pid
+     * @param
      * @return
      */
+//    @GetMapping("/findProductCategoryList")
+//    public R findSupplierList(int pageNum,int pageSize,long pid){
+//        Map map =new HashMap();
+//        map.put("pageNum",pageNum);
+//        map.put("pageSize",pageSize);
+//        return R.ok().setData(bizProductCategoryService.findAllByPid(map));
+//    }
     @GetMapping("/findProductCategoryList")
-    public R findSupplierList(int pageNum,int pageSize,long pid){
-        Map map =new HashMap();
-        map.put("pageNum",pageNum);
-        map.put("pageSize",pageSize);
-        map.put("pid",pid);
-        return R.ok().setData(bizProductCategoryService.findAllByPid(map));
-    }
+    public R findSupplierList(int pageNum,int pageSize){
+        return R.ok().setData(bizProductCategoryService.list(pageNum,pageSize));
 
+    }
 
     /**
      * 根据id 查询单个信息
@@ -89,14 +90,13 @@ public class BizProductCategoryController {
         return R.ok().setData(bizProductCategoryService.queryById(id));
 
     }
-
-    /**
+ /**
      * 更新分类
      * @param bizProductCategory
      * @return
      */
     @PutMapping("/update/{id}")
-    public R update(@PathVariable("id")long id, BizProductCategory bizProductCategory){
+    public R update(@PathVariable("id")long id, @RequestBody BizProductCategory bizProductCategory){
         int i = bizProductCategoryService.update(bizProductCategory);
         if (i==1){
             return R.ok().setData("修改成功！");

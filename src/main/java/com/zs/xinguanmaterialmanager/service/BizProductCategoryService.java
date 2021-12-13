@@ -43,6 +43,10 @@ public interface BizProductCategoryService {
      */
     int insert(BizProductCategory bizProductCategory);
 
+
+
+
+    PageInfo<BizProductCategory> list(int pageNum,int pageSize);
     /**
      * 修改数据
      *
@@ -70,7 +74,7 @@ public interface BizProductCategoryService {
      * 父类树
      * @return
      */
-    List<BizProductCategory> findById1();
+    PageInfo<BizProductCategory> findById1(int pageNum,int pageSize);
 
     List<BizProductCategory> listWithTree();
     //fan
