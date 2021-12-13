@@ -11,7 +11,6 @@ import com.zs.xinguanmaterialmanager.mapper.BizInStockMapper;
 import com.zs.xinguanmaterialmanager.mapper.BizProductMapper;
 import com.zs.xinguanmaterialmanager.mapper.BizSupplierMapper;
 import com.zs.xinguanmaterialmanager.service.BizInStockService;
-import com.zs.xinguanmaterialmanager.vo.InStockInfoProVO;
 import com.zs.xinguanmaterialmanager.vo.InStockVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -89,26 +88,32 @@ public class BizInStockServiceImpl implements BizInStockService {
     /**
      * 移入回收站
      *
-     * @param bizInStock
+     * @param id
      * @return
      */
     @Override
-    public Integer remove(BizInStock bizInStock) {
+    public Integer remove(long id) {
+        BizInStock bizInStock = bizInStockMapper.queryById(id);
         bizInStock.setStatus(1);
         return bizInStockMapper.update(bizInStock);
     }
 
-private BizProductMapper bizProductMapper;
+
     /**
      * 查询明细
      */
-    public PageInfo detail2(int id, int pageNum, int pageSize) {
-        PageHelper.startPage(pageNum,pageSize);
+    public PageInfo<BizProduct> detail2(long id, int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
         BizInStock inStock = bizInStockMapper.queryById(id);
 
-        List<InStockInfoProVO> detail = productMapper.finddetail(inStock.getInNum());
+        List<BizInStockInfo> byInNum = inStockInfoMapper.findByInNum(inStock.getInNum());
+        List<BizProduct> bizProducts =new ArrayList<>();
+        for (BizInStockInfo bizInStockInfo : byInNum){
+            BizProduct bizProduct = productMapper.queryBypNum(bizInStockInfo.getPNum());
+            bizProducts.add(bizProduct);
+        }
 
-        PageInfo<InStockInfoProVO> pageInfo =new PageInfo<>(detail);
+        PageInfo<BizProduct> pageInfo = new PageInfo<>(bizProducts);
         return pageInfo;
     }
 
@@ -116,7 +121,7 @@ private BizProductMapper bizProductMapper;
      * 查询明细头
      */
     @Override
-    public BizSupplier detail1(int id) {
+    public BizSupplier detail1(long id) {
         BizInStock bizInStock = bizInStockMapper.queryById(id);
         BizSupplier bizSupplier = supplierMapper.queryById(bizInStock.getSupplierId());
         return bizSupplier;

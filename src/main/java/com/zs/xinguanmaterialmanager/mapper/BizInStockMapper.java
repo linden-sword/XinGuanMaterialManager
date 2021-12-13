@@ -23,7 +23,7 @@ public interface BizInStockMapper {
      * @param id 主键
      * @return 实例对象
      */
-    BizInStock queryById(int id);
+    BizInStock queryById(long id);
 
     /**
      *通过id或inNum查询入库表信息
