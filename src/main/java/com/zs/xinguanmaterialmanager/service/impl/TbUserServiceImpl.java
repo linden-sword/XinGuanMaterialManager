@@ -162,4 +162,50 @@ public class TbUserServiceImpl implements TbUserService {
         System.out.println("///===FindRoleListByUserId(Service):" + roleList);
         return roleList;
     }
+
+
+    /**
+     *  通过用户名查询角色名称列表
+     *
+     * @author Zanson
+     * @since 9:38 2021/12/13
+     * @param username
+     * @return java.util.List<java.lang.String>
+    **/
+    @Override
+    public List<String> findRoleNameByUsername(String username) {
+        TbUser user = tbUserMapper.findByUsername(username);
+        List<TbUserRole> userRoleList = tbUserRoleMapper.queryUserRoleByUserId(user.getId());
+        List<String> roleNameList = new ArrayList<>();
+        for (TbUserRole tbUserRole:userRoleList){
+            roleNameList.add((tbRoleMapper.queryById(tbUserRole.getRoleId())).getRoleName());
+        }
+        return roleNameList;
+    }
+
+
+    /**
+     * 通过用户名查询权限名称
+     *
+     * @author Zanson
+     * @since 9:38 2021/12/13
+     * @param username
+     * @return java.util.List<java.lang.String>
+    **/
+    @Override
+    public List<String> findPermissionNameByUsername(String username) {
+        TbUser user = tbUserMapper.findByUsername(username);
+        //获取角色列表 : by userId
+        List<TbUserRole> userRoleList = tbUserRoleMapper.queryUserRoleByUserId(user.getId());
+        List<String> permissionNameList = new ArrayList<>();
+        //遍历获取menuList : by roleId
+        for (TbUserRole tbUserRole:userRoleList){
+            List<TbRoleMenu> roleMenuList = tbRoleMenuMapper.queryByRoleId(tbUserRole.getRoleId());
+            for (TbRoleMenu tbRoleMenu:roleMenuList){
+                TbMenu tbMenu = tbMenuMapper.queryById(tbRoleMenu.getMenuId());
+                permissionNameList.add((tbMenu).getMenuName());
+            }
+        }
+        return permissionNameList;
+    }
 }

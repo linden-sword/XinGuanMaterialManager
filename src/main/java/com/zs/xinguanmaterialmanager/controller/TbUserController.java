@@ -16,6 +16,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.subject.Subject;
 import org.springframework.web.bind.annotation.*;
 
@@ -211,6 +212,8 @@ public class TbUserController {
         TbDepartment department = departmentService.edit(tbUser.getDepartmentId());
         //角色
         List<TbRole> tbRoleList = tbUserService.findUserRoles(tbUser.getId());
+//        boolean b1 = SecurityUtils.getSubject().isPermitted("控制面板");   // 这个用户是否有某权限
+//        System.out.println("///=== 用户是否有某权限: " + b1);
         Map<String, Object> map = new HashMap<>();
         map.put("avatar", tbUser.getAvatar());
         map.put("username", tbUser.getUsername());
