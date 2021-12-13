@@ -23,7 +23,7 @@ import java.util.ArrayList;
  * @since 2021-12-06 20:32:28
  */
 @RestController
-@RequestMapping("/bizInStock")
+@RequestMapping("/XinGuan/bizInStock")
 public class BizInStockController {
     @Autowired
     private BizInStockServiceImpl inStockService;
