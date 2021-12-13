@@ -129,17 +129,17 @@ public class TbMenuController {
         }
         for (TbMenu menu : tbMenuList) {
             HSSFRow row1 = sheet.createRow(rowNum);
-            row1.createCell((short) 0).setCellValue(new HSSFRichTextString(menu.getId()+""));
-            row1.createCell((short) 1).setCellValue(new HSSFRichTextString(menu.getParentId()+""));
+            row1.createCell((short) 0).setCellValue(new HSSFRichTextString(menu.getId() + ""));
+            row1.createCell((short) 1).setCellValue(new HSSFRichTextString(menu.getParentId() + ""));
             row1.createCell((short) 2).setCellValue(new HSSFRichTextString(menu.getMenuName()));
             row1.createCell((short) 3).setCellValue(new HSSFRichTextString(menu.getUrl()));
             row1.createCell((short) 4).setCellValue(new HSSFRichTextString(menu.getIcon()));
-            row1.createCell((short) 5).setCellValue(new HSSFRichTextString(menu.getOpen()+""));
-            row1.createCell((short) 6).setCellValue(new HSSFRichTextString(menu.getType()+""));
-            row1.createCell((short) 7).setCellValue(new HSSFRichTextString(menu.getOrderNum()+""));
-            row1.createCell((short) 8).setCellValue(new HSSFRichTextString(menu.getCreateTime()+""));
-            row1.createCell((short) 9).setCellValue(new HSSFRichTextString(menu.getModifiedTime()+""));
-            row1.createCell((short) 10).setCellValue(new HSSFRichTextString(menu.getAvailable()+""));
+            row1.createCell((short) 5).setCellValue(new HSSFRichTextString(menu.getOpen() + ""));
+            row1.createCell((short) 6).setCellValue(new HSSFRichTextString(menu.getType() + ""));
+            row1.createCell((short) 7).setCellValue(new HSSFRichTextString(menu.getOrderNum() + ""));
+            row1.createCell((short) 8).setCellValue(new HSSFRichTextString(menu.getCreateTime() + ""));
+            row1.createCell((short) 9).setCellValue(new HSSFRichTextString(menu.getModifiedTime() + ""));
+            row1.createCell((short) 10).setCellValue(new HSSFRichTextString(menu.getAvailable() + ""));
             row1.createCell((short) 11).setCellValue(new HSSFRichTextString(menu.getPerms()));
             rowNum++;
         }
